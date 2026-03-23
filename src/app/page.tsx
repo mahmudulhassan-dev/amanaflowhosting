@@ -209,7 +209,7 @@ export default function Home() {
                 </div>
                 <div>
                   <h4 className="font-semibold text-surface-900 dark:text-white text-lg">24/7 Support</h4>
-                  <p className="text-sm text-surface-500">Average response < 15 mins.</p>
+                  <p className="text-sm text-surface-500">Average response &lt; 15 mins.</p>
                 </div>
               </div>
             </div>
