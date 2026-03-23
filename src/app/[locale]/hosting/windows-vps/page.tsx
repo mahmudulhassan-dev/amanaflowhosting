@@ -1,5 +1,4 @@
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
-import { SectionHeader } from "@/components/layout/SectionHeader";
 import { Card, CardContent, CardTitle, CardDescription, CardFooter, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2 } from "lucide-react";

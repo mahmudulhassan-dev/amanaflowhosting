@@ -1,5 +1,4 @@
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
-import { SectionHeader } from "@/components/layout/SectionHeader";
 import { Card, CardContent, CardTitle, CardDescription, CardFooter, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2, Server, Globe2, Activity } from "lucide-react";
@@ -19,7 +18,7 @@ export default function BareMetalPage() {
       <section className="relative w-full bg-surface-950 text-white pt-24 pb-32 overflow-hidden text-center border-b border-surface-800">
         <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-primary-900/40 rounded-full blur-[120px] pointer-events-none" />
         <div className="mx-auto max-w-4xl px-4 relative z-10">
-          <Badge variant="primary" styleType="outline" className="mb-6 bg-surface-900">Zero Virtualization Overhead</Badge>
+          <Badge variant="primary" styleType="soft" className="mb-6 bg-surface-900">Zero Virtualization Overhead</Badge>
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 font-mono text-white">
             Raw Compute. <span className="text-primary-500">Bare Metal.</span>
           </h1>
@@ -39,7 +38,7 @@ export default function BareMetalPage() {
           <Card className="bg-white dark:bg-surface-900 border-surface-200 dark:border-surface-800 shadow-xl overflow-hidden group">
             <div className="w-full h-1 bg-gradient-to-r from-surface-300 to-surface-500" />
             <CardHeader className="pt-8">
-              <Badge variant="outline" className="w-fit mb-4">Intel Xeon Scalable</Badge>
+              <Badge variant="neutral" styleType="soft" className="w-fit mb-4">Intel Xeon Scalable</Badge>
               <CardTitle className="text-2xl">BM-Intel-64</CardTitle>
               <CardDescription>Raw computing capability for typical enterprise workloads.</CardDescription>
             </CardHeader>
