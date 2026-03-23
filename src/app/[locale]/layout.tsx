@@ -4,6 +4,8 @@ import { Topbar } from "@/components/layout/Topbar";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
 import "./globals.css";
 
 const inter = Inter({
@@ -29,29 +31,31 @@ export const metadata: Metadata = {
   description: "Premium Digital Infrastructure Cloud Brand",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
+  params: { locale }
 }: Readonly<{
   children: React.ReactNode;
+  params: { locale: string };
 }>) {
+  const messages = await getMessages();
+
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${jetbrainsMono.variable} ${plusJakarta.variable} h-full`}
-      suppressHydrationWarning
-    >
+    <html lang={locale} className={`scroll-smooth h-full ${inter.variable} ${jetbrainsMono.variable} ${plusJakarta.variable}`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col font-sans antialiased bg-white text-surface-900 dark:bg-surface-950 dark:text-surface-50" suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Topbar />
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Topbar />
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
