@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/Input";
 import { PriceDisplay } from "@/components/ui/PriceDisplay";
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import { SectionHeader } from "@/components/layout/SectionHeader";
-import { ArrowRight, CheckCircle2, Server, ServerCrash, Shield, Zap, Check, Star } from "lucide-react";
+import { ArrowRight, CheckCircle2, Server, ServerCrash, Shield, Zap, Check, Star, Cloud, Globe, Headset } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
