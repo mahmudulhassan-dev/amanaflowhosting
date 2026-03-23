@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import { SectionHeader } from "@/components/layout/SectionHeader";
-import { CheckCircle2, ArrowRight, DollarSign, Users, TrendingUp, Handshake, Gift, Zap } from "lucide-react";
+import { ArrowRight, CheckCircle2, DollarSign, Users, TrendingUp, Handshake, Gift, Zap } from "lucide-react";
+import { PriceDisplay } from "@/components/ui/PriceDisplay";
 
 export const metadata: Metadata = {
   title: "Affiliate Program - AmanaFlow",
@@ -127,13 +128,15 @@ export default function AffiliatePage() {
               </div>
               
               <div className="space-y-4 mb-6">
-                <div className="flex justify-between items-center px-4 py-3 rounded-lg bg-surface-50 dark:bg-surface-800/50">
-                  <span className="text-surface-600 dark:text-surface-300">VPS Price (Yearly)</span>
-                  <span className="font-bold text-surface-900 dark:text-white">$179.88</span>
+                <div className="flex items-center justify-between p-3 rounded-xl bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700">
+                  <span className="text-surface-600 dark:text-surface-400 font-medium">10 Shared Subs</span>
+                  <PriceDisplay amount={179.88} className="font-bold text-surface-900 dark:text-white" />
                 </div>
-                <div className="flex justify-between items-center px-4 py-3 rounded-lg bg-primary-50 dark:bg-primary-900/20 border border-primary-100 dark:border-primary-800">
-                  <span className="text-primary-700 dark:text-primary-300 font-semibold">Your Commission (15%)</span>
-                  <span className="font-bold text-primary-600 dark:text-primary-400 text-lg">+$26.98</span>
+                <div className="flex items-center justify-between p-3 rounded-xl bg-primary-50 dark:bg-primary-900/40 border border-primary-200/50 dark:border-primary-800/50">
+                  <span className="text-primary-700 dark:text-primary-300 font-semibold">Recurring (15%)</span>
+                  <div className="font-bold text-primary-600 dark:text-primary-400 text-lg flex items-center">
+                    +<PriceDisplay amount={26.98} />
+                  </div>
                 </div>
                 <p className="text-xs text-center text-surface-500 mt-2">* You receive this amount every single year the client renews.</p>
               </div>

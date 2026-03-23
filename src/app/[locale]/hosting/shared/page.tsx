@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2, Server, Shield, Zap, HardDrive } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
+import { PriceDisplay } from "@/components/ui/PriceDisplay";
 
 export default function SharedHostingPage() {
   return (
@@ -38,9 +39,9 @@ export default function SharedHostingPage() {
               <CardDescription>For personal blogs and hobbies.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="mb-6">
-                <span className="text-4xl font-bold text-surface-900 dark:text-white">$2.99</span>
-                <span className="text-surface-500">/mo</span>
+              <div className="mb-6 flex items-baseline">
+                <PriceDisplay amount={2.99} className="text-4xl font-bold text-surface-900 dark:text-white" />
+                <span className="text-surface-500 ml-1">/mo</span>
               </div>
               <ul className="space-y-4 text-sm text-surface-600 dark:text-surface-400">
                 <li className="flex items-center gap-2"><CheckCircle2 size={18} className="text-primary-500" /> 1 Website</li>
@@ -62,9 +63,9 @@ export default function SharedHostingPage() {
               <CardDescription>For growing businesses and agencies.</CardDescription>
             </CardHeader>
             <CardContent className="px-8">
-              <div className="mb-6 text-center">
-                <span className="text-5xl font-bold text-primary-600 dark:text-primary-400">$5.99</span>
-                <span className="text-surface-500">/mo</span>
+              <div className="mb-6 text-center flex items-baseline justify-center">
+                <PriceDisplay amount={5.99} className="text-5xl font-bold text-primary-600 dark:text-primary-400" />
+                <span className="text-surface-500 ml-1">/mo</span>
               </div>
               <ul className="space-y-4 text-sm text-surface-600 dark:text-surface-300 font-medium">
                 <li className="flex items-center gap-2"><CheckCircle2 size={18} className="text-primary-500" /> Unlimited Websites</li>
@@ -86,9 +87,9 @@ export default function SharedHostingPage() {
               <CardDescription>Maximum performance for heavy traffic.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="mb-6">
-                <span className="text-4xl font-bold text-surface-900 dark:text-white">$9.99</span>
-                <span className="text-surface-500">/mo</span>
+              <div className="mb-6 flex items-baseline">
+                <PriceDisplay amount={9.99} className="text-4xl font-bold text-surface-900 dark:text-white" />
+                <span className="text-surface-500 ml-1">/mo</span>
               </div>
               <ul className="space-y-4 text-sm text-surface-600 dark:text-surface-400">
                 <li className="flex items-center gap-2"><CheckCircle2 size={18} className="text-primary-500" /> Unlimited Websites</li>
@@ -128,7 +129,7 @@ export default function SharedHostingPage() {
           <div className="bg-white dark:bg-surface-900 p-6 rounded-2xl border border-surface-200 dark:border-surface-800 shadow-sm">
             <Shield size={32} className="text-primary-500 mb-4" />
             <h3 className="text-lg font-bold mb-2">Free SSL Certificates</h3>
-            <p className="text-sm text-surface-500">Auto-installing Let's Encrypt SSL keeps your visitors' data highly secure.</p>
+            <p className="text-sm text-surface-500">Auto-installing Let&apos;s Encrypt SSL keeps your visitors&apos; data highly secure.</p>
           </div>
 
           <div className="bg-white dark:bg-surface-900 p-6 rounded-2xl border border-surface-200 dark:border-surface-800 shadow-sm">

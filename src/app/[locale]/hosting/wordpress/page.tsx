@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2, Zap, LayoutDashboard, Search, ShieldCheck } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
+import { PriceDisplay } from "@/components/ui/PriceDisplay";
 
 export default function WordPressHostingPage() {
   return (
@@ -38,9 +39,9 @@ export default function WordPressHostingPage() {
               <CardDescription>Perfect for personal blogs and portfolios.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="mb-6">
-                <span className="text-4xl font-bold text-surface-900 dark:text-white">$4.99</span>
-                <span className="text-surface-500">/mo</span>
+              <div className="mb-6 flex items-baseline">
+                <PriceDisplay amount={4.99} className="text-4xl font-bold text-surface-900 dark:text-white" />
+                <span className="text-surface-500 ml-1">/mo</span>
               </div>
               <ul className="space-y-4 text-sm text-surface-600 dark:text-surface-400">
                 <li className="flex items-center gap-2"><CheckCircle2 size={18} className="text-[#21759b]" /> 1 WordPress Site</li>
@@ -62,9 +63,9 @@ export default function WordPressHostingPage() {
               <CardDescription>For heavy traffic stores and agencies.</CardDescription>
             </CardHeader>
             <CardContent className="px-8">
-              <div className="mb-6 text-center">
-                <span className="text-5xl font-bold text-[#21759b] dark:text-[#21759b]">$8.99</span>
-                <span className="text-surface-500">/mo</span>
+              <div className="mb-6 text-center flex items-baseline justify-center">
+                <PriceDisplay amount={8.99} className="text-5xl font-bold text-[#21759b] dark:text-[#21759b]" />
+                <span className="text-surface-500 ml-1">/mo</span>
               </div>
               <ul className="space-y-4 text-sm text-surface-600 dark:text-surface-300 font-medium">
                 <li className="flex items-center gap-2"><CheckCircle2 size={18} className="text-[#21759b]" /> Unlimited WP Sites</li>

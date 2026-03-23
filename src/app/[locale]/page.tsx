@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/Input";
 import { PriceDisplay } from "@/components/ui/PriceDisplay";
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import { SectionHeader } from "@/components/layout/SectionHeader";
-import { Search, Server, Shield, Zap, Cloud, Headset, CheckCircle2, ChevronRight, ArrowRight, Globe } from "lucide-react";
+import { ArrowRight, CheckCircle2, Server, ServerCrash, Shield, Zap, Check, Star } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
@@ -53,10 +53,10 @@ export default function Home() {
               </Button>
             </form>
             <div className="flex flex-wrap items-center justify-center gap-6 mt-4 text-sm font-medium text-surface-400">
-              <span className="flex items-center gap-1 text-white"><strong className="font-bold">.com</strong> $9.99</span>
-              <span className="flex items-center gap-1 text-white"><strong className="font-bold">.net</strong> $11.99</span>
-              <span className="flex items-center gap-1"><strong className="font-bold">.org</strong> $12.99</span>
-              <span className="flex items-center gap-1"><strong className="font-bold">.co</strong> $24.99</span>
+              <span className="flex items-center gap-1 text-white"><strong className="font-bold">.com</strong> <PriceDisplay amount={9.99} /></span>
+              <span className="flex items-center gap-1 text-white"><strong className="font-bold">.net</strong> <PriceDisplay amount={11.99} /></span>
+              <span className="flex items-center gap-1"><strong className="font-bold">.org</strong> <PriceDisplay amount={12.99} /></span>
+              <span className="flex items-center gap-1"><strong className="font-bold">.co</strong> <PriceDisplay amount={24.99} /></span>
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ import { LanguageToggle } from "@/components/ui/LanguageToggle";
 import { CurrencyToggle } from "@/components/ui/CurrencyToggle";
 import { DropdownItem } from "@/components/ui/DropdownItem";
 import { MobileMenuItem } from "@/components/ui/MobileMenuItem";
+import { siteConfig } from "@/config/site";
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
@@ -164,10 +165,10 @@ export function Navbar() {
           <LanguageToggle />
           <ThemeToggle />
           <div className="w-px h-6 bg-surface-200 dark:bg-surface-800 mx-2" />
-          <Link href="/login" className="px-4 py-2 text-sm font-medium text-surface-600 hover:text-surface-900 dark:text-surface-300 dark:hover:text-white transition-colors">
+          <Link href={siteConfig.whmcsUrl} className="px-4 py-2 text-sm font-medium text-surface-600 hover:text-surface-900 dark:text-surface-300 dark:hover:text-white transition-colors">
             Login
           </Link>
-          <Button variant="primary" size="sm" className="hidden xl:inline-flex">Get Started</Button>
+          <Button variant="primary" size="sm" className="hidden xl:inline-flex" asChild><Link href={siteConfig.whmcsUrl}>Get Started</Link></Button>
         </div>
 
         {/* Mobile Toggle */}
@@ -276,8 +277,8 @@ export function Navbar() {
 
         {/* Drawer Footer CTA */}
         <div className="p-6 border-t border-surface-100 dark:border-surface-800 mt-auto flex flex-col gap-3">
-          <Button variant="outline" fullWidth size="lg" asChild><Link href="/login">Login to Account</Link></Button>
-          <Button variant="primary" fullWidth size="lg">Get Started</Button>
+          <Button variant="outline" fullWidth size="lg" asChild><Link href={siteConfig.whmcsUrl}>Login to Account</Link></Button>
+          <Button variant="primary" fullWidth size="lg" asChild><Link href={siteConfig.whmcsUrl}>Get Started</Link></Button>
         </div>
       </div>
 

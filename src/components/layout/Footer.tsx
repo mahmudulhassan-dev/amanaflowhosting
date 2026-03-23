@@ -2,6 +2,10 @@ import * as React from "react";
 import Link from "next/link";
 import { Server, Globe, Shield, CreditCard, Facebook, Twitter, Linkedin, Github } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
+import { siteConfig } from "@/config/site";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
+import { CurrencyToggle } from "@/components/ui/CurrencyToggle";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -65,9 +69,16 @@ export function Footer() {
         </div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col md:flex-row items-center justify-between border-t border-surface-800 pt-8 text-sm">
-          <div className="flex items-center gap-4 text-surface-500 mb-4 md:mb-0">
-            <p>&copy; {currentYear} AmanaFlow Cloud & IT. All rights reserved.</p>
+        <div className="flex flex-col md:flex-row items-center justify-between border-t border-surface-800 pt-8 mt-8 text-sm">
+          <div className="flex flex-col sm:flex-row items-center gap-4 text-surface-500 mb-6 md:mb-0">
+            <p>&copy; {currentYear} {siteConfig.name} Cloud & IT. All rights reserved.</p>
+            <div className="flex items-center gap-3 bg-surface-900 border border-surface-800 rounded-full px-4 py-1.5 shadow-sm">
+              <CurrencyToggle />
+              <div className="w-px h-4 bg-surface-800" />
+              <LanguageToggle />
+              <div className="w-px h-4 bg-surface-800" />
+              <ThemeToggle />
+            </div>
           </div>
           
           <div className="flex flex-wrap items-center justify-center gap-6">
@@ -78,10 +89,10 @@ export function Footer() {
             </div>
             
             <div className="flex items-center gap-3 text-surface-500">
-              <a href="#" className="hover:text-primary-400 transition-colors"><Facebook size={18} /></a>
-              <a href="#" className="hover:text-primary-400 transition-colors"><Twitter size={18} /></a>
-              <a href="#" className="hover:text-primary-400 transition-colors"><Linkedin size={18} /></a>
-              <a href="#" className="hover:text-primary-400 transition-colors"><Github size={18} /></a>
+              <a href={siteConfig.links.facebook} target="_blank" rel="noreferrer" className="hover:text-primary-400 transition-colors"><Facebook size={18} /></a>
+              <a href={siteConfig.links.twitter} target="_blank" rel="noreferrer" className="hover:text-primary-400 transition-colors"><Twitter size={18} /></a>
+              <a href={siteConfig.links.linkedin} target="_blank" rel="noreferrer" className="hover:text-primary-400 transition-colors"><Linkedin size={18} /></a>
+              <a href={siteConfig.links.github} target="_blank" rel="noreferrer" className="hover:text-primary-400 transition-colors"><Github size={18} /></a>
             </div>
             
             <div className="hidden md:flex items-center gap-2 text-surface-600">
