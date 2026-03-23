@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
+<<<<<<< Updated upstream
 import { Geist, Geist_Mono } from "next/font/google";
+=======
+import { Inter, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
+>>>>>>> Stashed changes
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +14,12 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta",
+  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +35,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+<<<<<<< Updated upstream
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+=======
+      className={`${inter.variable} ${jetbrainsMono.variable} ${plusJakarta.variable} h-full`}
+      suppressHydrationWarning
+>>>>>>> Stashed changes
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
