@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import { Menu, X, Server, Cloud, Shield, Database, Globe, ChevronDown, Zap, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { DropdownItem } from "@/components/ui/DropdownItem";
 import { MegaMenuItem } from "@/components/ui/MegaMenuItem";
 import { MobileMenuItem } from "@/components/ui/MobileMenuItem";
@@ -96,6 +97,7 @@ export function Navbar() {
 
         {/* Right CTA */}
         <div className="hidden lg:flex items-center gap-4">
+          <ThemeToggle />
           <Button variant="primary" size="sm">Client Area</Button>
         </div>
 
