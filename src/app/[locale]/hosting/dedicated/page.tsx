@@ -77,7 +77,7 @@ export default function DedicatedHostingPage() {
       </SectionWrapper>
 
       {/* Server Inventory Wrapper */}
-      <SectionWrapper className="bg-surface-50 dark:bg-surface-950" spacing="lg">
+      <SectionWrapper className="bg-surface-50 dark:bg-surface-950">
         <SectionHeader
           title="Server Configurations"
           description="Provisioned within 4 to 24 hours depending on hardware availability. Pricing requires no commitment."
@@ -141,7 +141,7 @@ export default function DedicatedHostingPage() {
       </SectionWrapper>
 
       {/* Trust factors */}
-      <SectionWrapper className="bg-white dark:bg-surface-900 border-t border-surface-200 dark:border-surface-800" spacing="md">
+      <SectionWrapper className="bg-white dark:bg-surface-900 border-t border-surface-200 dark:border-surface-800">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
            {[
              { i: <Key size={24} />, t: "Full Root Access", d: "Complete system control via SSH or IPMI." },

@@ -19,27 +19,30 @@ Files\nodejs/node_mo ...
     + FullyQualifiedErrorId : NativeCommandError
  
   Creating an optimized production build ...
-Γ£ô Compiled successfully in 2.4s
+Γ£ô Compiled successfully in 2.3s
   Running TypeScript ...
 Failed to type check.
 
-./src/app/[locale]/affiliate/page.tsx:75:29
-Type error: Type '"flat"' is not assignable to 
-type '"glass" | "dark" | "default" | "elevated" | 
-"pricing" | null | undefined'.
+./src/app/[locale]/hosting/dedicated/page.tsx:80:69
+Type error: Type '{ children: Element[]; 
+className: string; spacing: string; }' is not 
+assignable to type 'IntrinsicAttributes & 
+SectionWrapperProps & RefAttributes<HTMLElement>'.
+  Property 'spacing' does not exist on type 
+'IntrinsicAttributes & SectionWrapperProps & 
+RefAttributes<HTMLElement>'.
 
-  [90m73 |[0m             }
-  [90m74 |[0m           ].map((step, idx) => (
-[31m[1m>[0m [90m75 |[0m             
-<[33mCard[0m key={idx} variant=[32m"flat"[0m 
-className=[32m"bg-surface-50 dark:bg-surface-900 
-bo...[0m
-  [90m   |[0m                             
-[31m[1m^[0m
-  [90m76 |[0m               <div 
-className=[32m"mx-auto w-16 h-16 rounded-2xl 
-bg-white dark:bg-surface-800 f...[0m
-  [90m77 |[0m                 {step.icon}
-  [90m78 |[0m               </div>
+  [90m78 |[0m ...
+  [90m79 |[0m ...[90my Wrapper */[0m}
+[31m[1m>[0m [90m80 |[0m 
+...ssName=[32m"bg-surface-50 
+dark:bg-surface-950"[0m spacing=[32m"lg"[0m>
+  [90m   |[0m                                    
+           [31m[1m^[0m
+  [90m81 |[0m ...
+  [90m82 |[0m ...[32monfigurations"[0m
+  [90m83 |[0m ...[32movisioned within 4 to 24 
+hours depending on hardware availability. Pricing 
+requires no ...[0m
 Next.js build worker exited with code: 1 and 
 signal: null

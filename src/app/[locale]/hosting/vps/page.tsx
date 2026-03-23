@@ -88,7 +88,7 @@ export default function VPSHostingPage() {
       </SectionWrapper>
 
       {/* Pricing Grid */}
-      <SectionWrapper className="bg-surface-50 dark:bg-surface-950" spacing="lg">
+      <SectionWrapper className="bg-surface-50 dark:bg-surface-950">
         <SectionHeader
           title="Compute Resources Built to Scale"
           description="Transparent, predictable pricing with no hidden fees. Upgrade instantly as your traffic grows."
@@ -145,7 +145,7 @@ export default function VPSHostingPage() {
       </SectionWrapper>
 
       {/* Features Outline */}
-      <SectionWrapper className="bg-white dark:bg-surface-900" spacing="lg">
+      <SectionWrapper className="bg-white dark:bg-surface-900">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <Badge variant="neutral" className="mb-4 text-surface-600 dark:text-surface-300">Enterprise Infrastructure</Badge>
