@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/Card";
+import { Card } from "@/components/ui/Card";
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { CheckCircle2, ArrowRight, DollarSign, Users, TrendingUp, Handshake, Gift, Zap } from "lucide-react";
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function AffiliatePage() {
   return (
     <>
-      <SectionWrapper spacing="lg" className="relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24 bg-surface-950 text-white">
+      <SectionWrapper className="relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24 bg-surface-950 text-white">
         {/* Abstract Background Effects */}
         <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 opacity-20 dark:opacity-40">
           <div className="w-[600px] h-[600px] rounded-full bg-primary-600/30 blur-[120px]" />
@@ -24,7 +24,7 @@ export default function AffiliatePage() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-4xl text-center">
-          <Badge variant="glow" size="md" className="mb-6">
+          <Badge variant="primary" className="mb-6">
             <DollarSign size={14} className="mr-1.5" /> AmanaFlow Partner Program
           </Badge>
           <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-white lg:text-6xl">
@@ -48,7 +48,7 @@ export default function AffiliatePage() {
       </SectionWrapper>
 
       {/* How It Works */}
-      <SectionWrapper spacing="lg" className="bg-white dark:bg-surface-950">
+      <SectionWrapper className="bg-white dark:bg-surface-950">
         <SectionHeader
           title="How It Works"
           description="Getting started is incredibly simple. You do the referring, we do the heavy lifting."
@@ -84,10 +84,10 @@ export default function AffiliatePage() {
       </SectionWrapper>
 
       {/* Benefits */}
-      <SectionWrapper spacing="lg" className="bg-surface-50 dark:bg-surface-900 border-y border-surface-200 dark:border-surface-800">
+      <SectionWrapper className="bg-surface-50 dark:bg-surface-900 border-y border-surface-200 dark:border-surface-800">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
-            <Badge variant="primary" size="sm" className="mb-4">Why Partner With Us?</Badge>
+            <Badge variant="primary" className="mb-4">Why Partner With Us?</Badge>
             <h2 className="mb-6 text-3xl font-extrabold tracking-tight text-surface-900 dark:text-white sm:text-4xl">
               Industry-Leading Payouts With Exceptional Conversion Rates.
             </h2>
@@ -143,7 +143,7 @@ export default function AffiliatePage() {
       </SectionWrapper>
 
       {/* CTA Section */}
-      <SectionWrapper className="bg-surface-950 border-t border-surface-800" spacing="md">
+      <SectionWrapper className="bg-surface-950 border-t border-surface-800">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-surface-900 to-surface-950 border border-surface-800 px-6 py-16 text-center sm:px-12 sm:py-20 shadow-2xl">
           <div className="absolute inset-0 flex items-center justify-center opacity-10">
             <Zap size={400} className="text-primary-500 rotate-12" />
