@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function AffiliatePage() {
   return (
     <>
-      <SectionWrapper background="dark" spacing="lg" className="relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24">
+      <SectionWrapper spacing="lg" className="relative overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24 bg-surface-950 text-white">
         {/* Abstract Background Effects */}
         <div className="absolute top-0 right-0 -translate-y-12 translate-x-1/3 opacity-20 dark:opacity-40">
           <div className="w-[600px] h-[600px] rounded-full bg-primary-600/30 blur-[120px]" />
@@ -48,7 +48,7 @@ export default function AffiliatePage() {
       </SectionWrapper>
 
       {/* How It Works */}
-      <SectionWrapper background="white" spacing="lg">
+      <SectionWrapper spacing="lg" className="bg-white dark:bg-surface-950">
         <SectionHeader
           title="How It Works"
           description="Getting started is incredibly simple. You do the referring, we do the heavy lifting."
@@ -84,7 +84,7 @@ export default function AffiliatePage() {
       </SectionWrapper>
 
       {/* Benefits */}
-      <SectionWrapper background="gray" spacing="lg">
+      <SectionWrapper spacing="lg" className="bg-surface-50 dark:bg-surface-900 border-y border-surface-200 dark:border-surface-800">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div>
             <Badge variant="primary" size="sm" className="mb-4">Why Partner With Us?</Badge>
@@ -143,7 +143,7 @@ export default function AffiliatePage() {
       </SectionWrapper>
 
       {/* CTA Section */}
-      <SectionWrapper background="dark" className="border-t border-surface-800" spacing="md">
+      <SectionWrapper className="bg-surface-950 border-t border-surface-800" spacing="md">
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-surface-900 to-surface-950 border border-surface-800 px-6 py-16 text-center sm:px-12 sm:py-20 shadow-2xl">
           <div className="absolute inset-0 flex items-center justify-center opacity-10">
             <Zap size={400} className="text-primary-500 rotate-12" />

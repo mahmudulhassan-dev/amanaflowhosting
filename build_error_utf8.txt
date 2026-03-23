@@ -21,21 +21,34 @@ Files\nodejs/node_mo ...
   Creating an optimized production build ...
 Γ£ô Compiled successfully in 2.0s
   Running TypeScript ...
-  Finished TypeScript in 2.8s ...
-  Collecting page data using 7 workers ...
-  Generating static pages using 7 workers (0/3) ...
-Γ£ô Generating static pages using 7 workers (3/3) in 413ms
-  Finalizing page optimization ...
+Failed to type check.
 
-Route (app)
-Γöî Γùï /_not-found
-Γö£ ╞Æ /[locale]
-Γö£ ╞Æ /[locale]/hosting/shared
-Γöö ╞Æ /[locale]/hosting/wordpress
+./src/app/[locale]/affiliate/page.tsx:17:23
+Type error: Type '{ children: Element[]; 
+background: string; spacing: string; className: 
+string; }' is not assignable to type 
+'IntrinsicAttributes & SectionWrapperProps & 
+RefAttributes<HTMLElement>'.
+  Property 'background' does not exist on type 
+'IntrinsicAttributes & SectionWrapperProps & 
+RefAttributes<HTMLElement>'. Did you mean 
+'hasBackground'?
 
-
-╞Æ Proxy (Middleware)
-
-Γùï  (Static)   prerendered as static content
-╞Æ  (Dynamic)  server-rendered on demand
-
+  [90m15 |[0m   [36mreturn[0m (
+  [90m16 |[0m     <>
+[31m[1m>[0m [90m17 |[0m       
+<[33mSectionWrapper[0m 
+background=[32m"dark"[0m spacing=[32m"lg"[0m 
+className=[32m"relative overflow-hidden p...[0m
+  [90m   |[0m                       
+[31m[1m^[0m
+  [90m18 |[0m         {[90m/* Abstract 
+Background Effects */[0m}
+  [90m19 |[0m         <div 
+className=[32m"absolute top-0 right-0 
+-translate-y-12 translate-x-1/3 opacity-20 ...[0m
+  [90m20 |[0m           <div 
+className=[32m"w-[600px] h-[600px] rounded-full 
+bg-primary-600/30 blur-[120px]"[0m />
+Next.js build worker exited with code: 1 and 
+signal: null
