@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Input } from "@/components/ui/Input";
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import { SectionHeader } from "@/components/layout/SectionHeader";
-import { Search, Server, Shield, Zap, Cloud, Headset, CheckCircle2, ChevronRight, ArrowRight } from "lucide-react";
+import { Search, Server, Shield, Zap, Cloud, Headset, CheckCircle2, ChevronRight, ArrowRight, Globe } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
