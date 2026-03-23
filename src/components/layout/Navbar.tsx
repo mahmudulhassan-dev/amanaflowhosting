@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { LanguageToggle } from "@/components/ui/LanguageToggle";
+import { CurrencyToggle } from "@/components/ui/CurrencyToggle";
 import { DropdownItem } from "@/components/ui/DropdownItem";
 import { MegaMenuItem } from "@/components/ui/MegaMenuItem";
 import { MobileMenuItem } from "@/components/ui/MobileMenuItem";
@@ -98,6 +99,7 @@ export function Navbar() {
 
         {/* Right CTA */}
         <div className="hidden lg:flex items-center gap-2">
+          <CurrencyToggle />
           <LanguageToggle />
           <ThemeToggle />
           <div className="w-px h-6 bg-surface-200 dark:bg-surface-800 mx-1" />

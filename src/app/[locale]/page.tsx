@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
+import { PriceDisplay } from "@/components/ui/PriceDisplay";
 import { SectionWrapper } from "@/components/layout/SectionWrapper";
 import { SectionHeader } from "@/components/layout/SectionHeader";
 import { Search, Server, Shield, Zap, Cloud, Headset, CheckCircle2, ChevronRight, ArrowRight, Globe } from "lucide-react";
@@ -81,9 +82,8 @@ export default function Home() {
               <CardDescription>Perfect for personal sites, portfolios, and small business landing pages.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="mb-6">
-                <span className="text-3xl font-bold text-surface-900 dark:text-white">$2.99</span>
-                <span className="text-surface-500">/month</span>
+              <div className="mb-6 flex items-baseline">
+                <PriceDisplay amount={2.99} className="text-3xl font-bold text-surface-900 dark:text-white" monthly />
               </div>
               <ul className="space-y-3 text-sm text-surface-600 dark:text-surface-300">
                 <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-success-500" /> Unlimited NVMe SSD</li>
@@ -111,9 +111,8 @@ export default function Home() {
               <CardDescription>LiteSpeed-powered caching for extreme WordPress performance.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="mb-6">
-                <span className="text-3xl font-bold text-primary-600 dark:text-primary-400">$5.99</span>
-                <span className="text-surface-500">/month</span>
+              <div className="mb-6 flex items-baseline">
+                <PriceDisplay amount={5.99} className="text-3xl font-bold text-primary-600 dark:text-primary-400" monthly />
               </div>
               <ul className="space-y-3 text-sm text-surface-600 dark:text-surface-300">
                 <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-primary-500" /> LiteSpeed Cache Plugin</li>
@@ -139,9 +138,8 @@ export default function Home() {
               <CardDescription>Dedicated resources with full root access for scaling apps.</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="mb-6">
-                <span className="text-3xl font-bold text-surface-900 dark:text-white">$14.99</span>
-                <span className="text-surface-500">/month</span>
+              <div className="mb-6 flex items-baseline">
+                <PriceDisplay amount={14.99} className="text-3xl font-bold text-surface-900 dark:text-white" monthly />
               </div>
               <ul className="space-y-3 text-sm text-surface-600 dark:text-surface-300">
                 <li className="flex items-center gap-2"><CheckCircle2 size={16} className="text-success-500" /> Dedicated vCPU & RAM</li>

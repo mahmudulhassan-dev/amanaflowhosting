@@ -19,39 +19,23 @@ Files\nodejs/node_mo ...
     + FullyQualifiedErrorId : NativeCommandError
  
   Creating an optimized production build ...
-Γ£ô Compiled successfully in 2.2s
+Γ£ô Compiled successfully in 2.0s
   Running TypeScript ...
-Failed to type check.
+  Finished TypeScript in 2.8s ...
+  Collecting page data using 7 workers ...
+  Generating static pages using 7 workers (0/3) ...
+Γ£ô Generating static pages using 7 workers (3/3) in 413ms
+  Finalizing page optimization ...
 
-./src/i18n.ts:6:33
-Type error: Argument of type '({ locale }: 
-GetRequestConfigParams) => Promise<{ messages: 
-any; }>' is not assignable to parameter of type 
-'(params: GetRequestConfigParams) => RequestConfig 
-| Promise<RequestConfig>'.
-  Type 'Promise<{ messages: any; }>' is not 
-assignable to type 'RequestConfig | 
-Promise<RequestConfig>'.
-    Type 'Promise<{ messages: any; }>' is not 
-assignable to type 'Promise<RequestConfig>'.
-      Type '{ messages: any; }' is not assignable 
-to type 'RequestConfig'.
-        Property 'locale' is missing in type '{ 
-messages: any; }' but required in type '{ locale: 
-string; }'.
+Route (app)
+Γöî Γùï /_not-found
+Γö£ ╞Æ /[locale]
+Γö£ ╞Æ /[locale]/hosting/shared
+Γöö ╞Æ /[locale]/hosting/wordpress
 
-  [90m4 |[0m [36mexport[0m [36mconst[0m 
-locales = [[32m'en'[0m, [32m'bn'[0m];
-  [90m5 |[0m
-[31m[1m>[0m [90m6 |[0m [36mexport[0m 
-[36mdefault[0m getRequestConfig([36masync[0m 
-({locale}) => {
-  [90m  |[0m                                 
-[31m[1m^[0m
-  [90m7 |[0m   [36mif[0m 
-(!locales.includes(locale [36mas[0m any)) 
-notFound();
-  [90m8 |[0m
-  [90m9 |[0m   [36mreturn[0m {
-Next.js build worker exited with code: 1 and 
-signal: null
+
+╞Æ Proxy (Middleware)
+
+Γùï  (Static)   prerendered as static content
+╞Æ  (Dynamic)  server-rendered on demand
+

@@ -4,6 +4,7 @@ import { Topbar } from "@/components/layout/Topbar";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { CurrencyProvider } from "@/context/CurrencyContext";
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import "./globals.css";
@@ -45,17 +46,19 @@ export default async function RootLayout({
     <html lang={locale} className={`scroll-smooth h-full ${inter.variable} ${jetbrainsMono.variable} ${plusJakarta.variable}`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col font-sans antialiased bg-white text-surface-900 dark:bg-surface-950 dark:text-surface-50" suppressHydrationWarning>
         <NextIntlClientProvider messages={messages}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Topbar />
-            <Navbar />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </ThemeProvider>
+          <CurrencyProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Topbar />
+              <Navbar />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </ThemeProvider>
+          </CurrencyProvider>
         </NextIntlClientProvider>
       </body>
     </html>
