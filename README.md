@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AmanaFlow Hosting Platform
 
-## Getting Started
+Welcome to the central repository for the **AmanaFlow Hosting Company Platform**. This repository contains the Next.js 15 (App Router) frontend, designed to integrate seamlessly with our WHMCS backend.
 
-First, run the development server:
+## 📁 Repository Strategy & Audit
 
+We operate a strict, professional Git workflow tailored for Vercel deployment and WHMCS integration.
+- **Current Branch Status**: We use `main` for production and `development` for active staging/preview.
+- **Vercel Previews**: Vercel automatically builds preview URLs for the `development` and `feature/*` branches.
+- **Private Contribution Rules**: No pushing directly to `main`. Create feature branches (e.g., `feature/navigation-shell`) and submit PRs to `development`.
+
+### Folder Structure
+- `src/app/` -> Next.js Pages and API Routes.
+- `src/components/ui/` -> Reusable core design system (Buttons, Cards).
+- `src/components/shared/` -> Cross-page components (Navbar, Footer).
+- `src/components/sections/` -> Large page sections (Hero, Pricing Grid).
+- `src/config/` -> Static constants (Site SEO, Menus).
+- `src/lib/` -> Utility functions and WHMCS API bridge.
+- `docs/` -> Comprehensive planning, maps, and component logging.
+
+## 🚀 Execution & Implementation Plan
+
+### Phase E1: Core Brand Shell Finalization
+- **Goal**: Establish the typography (`Plus Jakarta Sans`) and color tokens (Enterprise Cloud).
+- **Files**: `src/app/globals.css`, `src/app/layout.tsx`.
+
+### Phase E2: Navigation & Layout Shell
+- **Goal**: Rebuild the app shell with a premium hosting feel.
+- **Components**: Topbar, Sticky Navbar, Mega Menu, Mobile Drawer, Premium Footer.
+- **Files**: `src/components/shared/*`.
+
+### Phase E3: Homepage Final Shell
+- **Goal**: Create the highly-converting hosting homepage.
+- **Sections**: Hero, Domain Search Strip, Trust Strip, Hosting Categories, Pricing Teaser, Security Overview.
+- **Files**: `src/app/page.tsx`, `src/components/sections/*`.
+
+## 🌐 Vercel-Aware Workflow
+Before merging any feature, ensure:
+1. Local build succeeds (`npm run build`).
+2. No sensitive WHMCS credentials exist in the frontend code.
+3. Next.js image configurations match our trusted domains.
+4. Preview URLs function without errors.
+
+## 🛠 Installation & Local Dev
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+*Created per AmanaFlow Master Plan Phase 1.*
