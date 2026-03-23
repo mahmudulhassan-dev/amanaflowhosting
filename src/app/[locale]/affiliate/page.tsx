@@ -72,7 +72,7 @@ export default function AffiliatePage() {
               desc: "Get paid automatically when your referrals purchase and renew their hosting plans."
             }
           ].map((step, idx) => (
-            <Card key={idx} variant="flat" className="bg-surface-50 dark:bg-surface-900 border-none text-center p-6">
+            <Card key={idx} variant="default" className="bg-surface-50 dark:bg-surface-900 border-none text-center p-6">
               <div className="mx-auto w-16 h-16 rounded-2xl bg-white dark:bg-surface-800 flex items-center justify-center shadow-premium mb-6">
                 {step.icon}
               </div>
