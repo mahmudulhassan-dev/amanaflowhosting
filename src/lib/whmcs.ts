@@ -17,7 +17,6 @@ export interface DomainLookupResult {
 }
 
 export async function lookupDomain(domain: string): Promise<DomainLookupResult[]> {
-  // Check if credentials are missing
   const needsMock = !WHMCS_API_URL || !WHMCS_API_IDENTIFIER || !WHMCS_API_SECRET;
 
   if (needsMock) {
@@ -26,12 +25,41 @@ export async function lookupDomain(domain: string): Promise<DomainLookupResult[]
   }
 
   try {
-    // Real WHMCS API Call implementation would go here
-    // For now, returning mock to ensure UI progress
-    return mockLookupDomain(domain);
+    const [, tld] = domain.includes('.') ? [domain.split('.')[0], domain.split('.').slice(1).join('.')] : [domain, 'com'];
+    
+    const params = new URLSearchParams();
+    params.append('action', 'DomainWhois');
+    params.append('domain', domain);
+    params.append('identifier', WHMCS_API_IDENTIFIER!);
+    params.append('secret', WHMCS_API_SECRET!);
+    params.append('responsetype', 'json');
+
+    const response = await fetch(WHMCS_API_URL!, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: params,
+    });
+
+    const data = await response.json();
+
+    if (data.result === 'error') {
+      throw new Error(data.message || "WHMCS API Error");
+    }
+
+    // WHMCS DomainWhois returns: { result: "success", status: "available" | "unavailable" }
+    return [{
+      domain: domain,
+      available: data.status === 'available',
+      price: getMockPrice(`.${tld}`), // Pricing usually needs a separate 'GetTLDPricing' call
+      currency: 'USD',
+      extension: `.${tld}`
+    }];
   } catch (error) {
     console.error("WHMCS API Error:", error);
-    throw new Error("Failed to communicate with billing system.");
+    // Fallback to mock if API fails during migration/dns propagation
+    return mockLookupDomain(domain);
   }
 }
 

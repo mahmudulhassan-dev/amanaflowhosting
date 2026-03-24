@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "AmanaFlow",
   description: "Premium digital infrastructure and cloud hosting solutions for businesses.",
-  whmcsUrl: process.env.NEXT_PUBLIC_WHMCS_URL || "https://amanaflow.cloud/clientarea.php",
+  whmcsUrl: process.env.NEXT_PUBLIC_WHMCS_URL || "https://clients.amanaflow.cloud/",
   links: {
     twitter: "https://twitter.com",
     facebook: "https://facebook.com",
