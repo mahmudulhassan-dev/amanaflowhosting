@@ -1,0 +1,52 @@
+---
+title: "Setting Up a Cron Job in cPanel: Simplified"
+description: "Automate your repetitive tasks. Learn how to schedule scripts to run at specific times using the cPanel Cron Job manager."
+date: "2026-03-24"
+category: "Tutorials"
+---
+
+<TLDR>
+**Quick Summary:** A "Cron Job" is a scheduled task. You provide a "Command" (the path to your script) and a "Schedule" (how often it should run). Common for backups, email queues, and database maintenance.
+</TLDR>
+
+## What is a Cron Job?
+Think of it as an alarm clock for your server. If you have a script that needs to send a newsletter every Monday at 9:00 AM, a Cron Job is the tool that makes it happen without you being awake.
+
+### The 5 Stars of Scheduling
+Cron uses five stars to define time: `* * * * *`
+1. Minute (0-59)
+2. Hour (0-23)
+3. Day of Month (1-31)
+4. Month (1-12)
+5. Day of Week (0-6)
+
+---
+
+## Setting it up in cPanel
+
+### 1. Find the Cron Jobs Icon
+Log in to cPanel and search for "Cron Jobs" in the Advanced section.
+
+### 2. Choose a "Common Setting"
+cPanel provides defaults like "Once per hour" or "Once per day." For most purposes, these are the safest bet.
+
+### 3. Enter the Command
+This is where people usually fail. You need the **Full Path** to the PHP executable and the **Full Path** to your script.
+*Example:* 
+`/usr/local/bin/php /home/username/public_html/cron.php`
+
+---
+
+## Avoiding "Cron Bloat"
+Don't set scripts to run every minute unless absolutely necessary. Too many simultaneous cron jobs can spike your CPU and slow down your website for visitors. For high-volume tasks, consider a **Managed VPS** where you have more control over the background process priority.
+
+[Scale with AmanaFlow Cloud](/web-hosting)
+
+---
+
+## FAQ
+**Q: Can I get an email when the cron job runs?**  
+A: Yes. You can set a "Cron Email" in the manager. However, if the job runs every minute, your inbox will fill up fast!
+
+**Q: My cron job isn't working, why?**  
+A: Check the permissions of the script file. It should be set to `0644`. Also, ensure the file paths are 100% correct.

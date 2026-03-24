@@ -1,0 +1,46 @@
+---
+title: "DNS Records Explained: A, CNAME, MX, and TXT"
+description: "Master the building blocks of the internet. Learn what different DNS records do and how to configure them for your website and email."
+date: "2026-03-24"
+category: "Domain & DNS"
+---
+
+<TLDR>
+**Quick Summary:** DNS records are instructions on a nameserver that tell the internet where to find your site (A record), your email (MX record), or how to verify your domain (TXT record).
+</TLDR>
+
+## What is DNS?
+The **Domain Name System (DNS)** is the phonebook of the internet. It translates human-friendly names (amanaflow.com) into machine-friendly IP addresses (192.168.1.1). To do this, it uses several types of records.
+
+### The 4 Most Important DNS Records
+
+#### 1. A Record (Address Record)
+The most fundamental record. It points your domain name directly to the **IP address** of your server.
+*Example: amanaflow.com -> 104.21.45.12*
+
+#### 2. CNAME Record (Canonical Name)
+Think of this as an alias. It points one domain name to another domain name, rather than an IP address. It’s commonly used for subdomains.
+*Example: www.amanaflow.com -> amanaflow.com*
+
+#### 3. MX Record (Mail Exchanger)
+These records tell the world where to send your emails. They point to your mail server. If these are wrong, you won't receive any mail.
+*Example: mx1.amanaflow.cloud*
+
+#### 4. TXT Record (Text)
+Initially intended for human-readable notes, these are now used for security and verification services like **SPF**, **DKIM**, and **DMARC** to prevent email spoofing.
+
+---
+
+## Modifying DNS at AmanaFlow
+You can manage all your records through the **Zone Editor** in your control panel. Changes usually take 1-4 hours to propagate globally.
+
+[Manage Your DNS Logs](/domain-name-search)
+
+---
+
+## FAQ
+**Q: What is a TTL?**  
+A: TTL (Time to Live) tells servers how long to "cache" your DNS info before checking for updates. A lower TTL makes changes happen faster.
+
+**Q: Can I have multiple A records?**  
+A: Yes, this is often used for "Round Robin" load balancing, directing traffic to multiple servers.

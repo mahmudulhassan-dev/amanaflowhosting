@@ -1,0 +1,55 @@
+---
+title: "How to Set Up a Staging Site for WordPress (Safe Testing)"
+description: "Never test on your live site again. Learn how to create a perfect clone of your WordPress site to test plugins, themes, and updates safely."
+date: "2026-03-24"
+category: "Tutorials"
+---
+
+<TLDR>
+**Quick Summary:** A staging site is a private clone of your live website. It allows you to test updates and bug fixes without the risk of "breaking" your live business site.
+</TLDR>
+
+## The "Never Break Local" Rule
+One bad plugin update can cause the "White Screen of Death" (WSoD) on your live site, leading to lost sales and frustrated users. A **Staging Environment** is the professional solution to this problem.
+
+### Method 1: The AmanaFlow One-Click Staging
+In your hosting dashboard or Softaculous:
+1. Find your WordPress installation.
+2. Look for the **Staging** icon.
+3. Choose your staging URL (e.g., `staging.yourdomain.com`).
+4. Click **Create Staging**.
+Our system will handle the database cloning and file copying automatically.
+
+---
+
+## Method 2: Manual Staging via Subdomain
+If you prefer manual control:
+1. Create a subdomain (staging.yourdomain.com).
+2. Use the **Copy** feature in File Manager to move your files.
+3. Create a new database and import your live SQL file.
+4. Update the `wp-config.php` on staging to use the new database.
+5. Use a "Search and Replace" tool to update URLs from `live.com` to `staging.live.com`.
+
+---
+
+## "Pushing" to Live
+Once you are happy with your changes on the staging site:
+1. Back up your live site (just in case!).
+2. Use the "Push to Live" feature in Softaculous.
+3. Our system will overwrite the live files/database with the staging version safely.
+
+---
+
+## Professional Workflow
+Developer -> Staging -> QA -> Live. Following this path ensures your business website remains 100% stable, 100% of the time.
+
+[Get Managed WordPress with Staging Support](/wordpress-hosting)
+
+---
+
+## FAQ
+**Q: Will staging affect my SEO?**  
+A: No, as long as you keep it "No-Index." AmanaFlow's automated staging automatically adds the `noindex` tag to prevent search engines from crawling your test site.
+
+**Q: Do I need extra storage for staging?**  
+A: Yes. A staging site is a full clone, so it will use the same amount of storage as your live site.

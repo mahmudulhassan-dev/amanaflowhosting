@@ -1,0 +1,56 @@
+---
+title: "How DNS Propagation Works: Why Your Website is Still Down"
+description: "Changed your nameservers but your website still isn't loading? Learn how global DNS propagation works, what TTL is, and how to verify your records."
+date: "2026-03-24"
+category: "Domains & DNS"
+image: "/images/blog/vps_optimization_featured.png"
+---
+
+<TLDR>
+**Patience is Key:** DNS is a decentralized global address book. When you change where a domain points, it takes time for thousands of ISPs worldwide to update their local cached copies. 
+</TLDR>
+
+## The Address Book of the Internet
+Computers don't understand `amanaflow.com`. They only understand IP addresses like `192.168.1.50`. 
+The Domain Name System (DNS) translates human-readable domain names into machine-readable IP addresses.
+
+When you purchase a new web hosting plan and change your domain's Nameservers from GoDaddy to AmanaFlow, you are essentially telling the internet: *"Whenever someone asks for my website, ask AmanaFlow's server for the IP address."*
+
+### Why Does Propagation Take 4 to 24 Hours?
+The internet relies heavily on **caching** to remain fast. 
+If your local Internet Service Provider (like Comcast or BT) had to ask the central root servers for an IP address every single time a user visited Facebook, the internet would collapse.
+
+Instead, your ISP saves (caches) the IP address of Facebook. 
+When you update your Nameservers, your local ISP doesn't know about it instantly because they are still looking at their cached, outdated version of your domain.
+
+### Time to Live (TTL) Explained
+Every DNS record has a TTL value (usually measured in seconds). A TTL of `14400` means 4 hours.
+This tells ISPs: *"Keep this IP address cached for 4 hours before checking back with the authoritative server to see if it changed."*
+
+If you know you are migrating a website on Friday, change your TTL to `300` (5 minutes) on Wednesday. When Friday arrives, ISPs will update your new IP address almost instantly.
+
+---
+
+<ProductMarketing 
+  title="Instant DNS Updates"
+  description="Manage all your domains and DNS records from a single blazing-fast dashboard. AmanaFlow Premium DNS ensures lightning-fast global resolution."
+  cta="Register a Domain"
+  link="/domain-registration"
+  type="agency"
+/>
+
+---
+
+## How to Check Your Propagation Status
+Do not clear your browser cache repeatedly; it won't force your ISP to update.
+Instead, use a global DNS checker tool like `whatsmydns.net`. 
+
+1. Enter your domain name.
+2. Select **NS** (Nameserver) or **A** (A-Record).
+3. Click Search.
+
+You will see a map of the world. Green ticks mean that specific geographic region has updated to your new server. Red crosses mean they are still looking at the old cache.
+
+## FAQs
+**Q: Can I access my website before DNS propagates?**  
+A: Yes! AmanaFlow provides a temporary control panel URL (e.g., `http://192.168.1.50/~username`) so you can build your WordPress site while waiting for the domain to propagate globally.

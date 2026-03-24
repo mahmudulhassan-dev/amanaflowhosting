@@ -1,0 +1,70 @@
+---
+title: "How to Use Rsync for Zero-Downtime Server Migrations"
+description: "Moving from an old VPS to a new one? Learn how to stream gigabytes of files securely via SSH without zipping, downloading, and re-uploading."
+date: "2026-03-24"
+category: "Server Administration"
+image: "/images/blog/whmcs_automation_featured.png"
+---
+
+<TLDR>
+**The Admin's Swiss Army Knife:** `rsync` recursively synchronizes files directly from Server A to Server B over an encrypted SSH connection. It only transfers the *differences* between files, making it incredibly fast.
+</TLDR>
+
+## The Terrible Way to Migrate
+When most beginners move a 50GB website to a new server, they use an FTP client (like FileZilla) to download the 50GB to their home computer, and then upload it to the new server. 
+- It takes hours.
+- Connections randomly drop.
+- Linux file permissions get annihilated.
+
+### Enter Rsync
+`rsync` transfers files directly between the two servers at their maximum network pipe speed (often 1 Gbps to 10 Gbps). Better yet, if the transfer is interrupted, `rsync` resumes exactly where it left off.
+
+### Step 1: The Basic Transfer
+Assume you are logged into your **OLD** Server (Source). You want to send the folder `/var/www/mywebsite` to your **NEW** Server (Destination) at IP `203.0.113.50`.
+
+Run this command on the old server:
+```bash
+rsync -avz /var/www/mywebsite root@203.0.113.50:/var/www/
+```
+**Understanding the Flags (`-avz`):**
+- `-a` (Archive): Preserves all permissions, symlinks, and ownerships perfectly.
+- `-v` (Verbose): Shows you a scrolling list of what is currently being transferred.
+- `-z` (Compress): Compresses file data during the transfer to save bandwidth.
+
+*(It will ask for the root password of the new server before beginning).*
+
+### Step 2: The Two-Pass Zero Downtime Strategy
+If you have a massive WooCommerce store, you can't put it in maintenance mode for 4 hours while `rsync` transfers 200GB of images. Here is the professional strategy:
+
+1. **Pass 1 (While live):** Run the `rsync` command normally. The site stays online. It takes 4 hours, but users are still buying products on the old server.
+2. **Database Migration:** Put the site in maintenance mode. Export the database and import it to the new server (Takes 2 minutes).
+3. **Pass 2 (The Delta Transfer):** Run the *exact same* `rsync` command again. Because Rsync is smart, it compares the folders and only transfers the 5 new images uploaded in the last 4 hours. It finishes in 30 seconds.
+4. **Update DNS:** Point your domain to the new server.
+
+---
+
+<ProductMarketing 
+  title="Need Free Migration Assistance?"
+  description="Don't want to use Rsync? Our L3 migration experts will transfer your cPanel, WordPress, or CyberPanel sites to AmanaFlow completely free of charge."
+  cta="View Hosting Plans"
+  link="/web-hosting"
+  type="shared"
+/>
+
+---
+
+### Custom SSH Ports
+If your new server has a secure, custom SSH port (e.g., 2222), you must specify it using the `-e` flag:
+```bash
+rsync -avz -e 'ssh -p 2222' /var/www/mywebsite root@203.0.113.50:/var/www/
+```
+
+### The Trailing Slash Rule Warning
+Rsync treats `/folder` and `/folder/` wildly differently. 
+- `rsync /var/www` will create a new folder called "www" inside the destination.
+- `rsync /var/www/` will dump the *contents* of "www" into the destination.
+**Always double-check your trailing slashes!**
+
+## FAQs
+**Q: Does rsync delete files on the destination if they were deleted on the source?**  
+A: Not by default. If you want a perfect mirror that deletes old files on the new server, you must add the `--delete` flag. Use this with extreme caution.

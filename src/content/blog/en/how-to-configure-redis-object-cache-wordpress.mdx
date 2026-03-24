@@ -1,0 +1,76 @@
+---
+title: "How to Configure Redis Object Cache in WordPress (LSCache)"
+description: "Dramatically reduce your database load. Learn exactly how to install and connect a Redis instance to WordPress via LiteSpeed Cache."
+date: "2026-03-24"
+category: "Wordpress Excellence"
+image: "/images/blog/vps_optimization_featured.png"
+---
+
+<TLDR>
+**Database Savior:** Without object caching, WordPress executes the exact same identical MySQL queries thousands of times a minute. Redis intercepts these queries and serves them instantly from RAM.
+</TLDR>
+
+## Page Cache vs Object Cache
+You've likely installed a caching plugin before. Plugins like WP Rocket or LiteSpeed Cache provide **Page Caching**—meaning they take the final HTML output of a webpage and save it. 
+However, page caching is bypassed when:
+1. A user is logged in.
+2. A customer is checking out on WooCommerce.
+3. The cart widget needs dynamic updating.
+
+When Page Caching is bypassed, WordPress slams your Database. That's where **Object Caching** (Redis) comes in.
+
+### Step 1: Install the Redis Server
+If you are on an Unmanaged VPS (Ubuntu 22/24), you must install the Redis server application first.
+```bash
+sudo apt update
+sudo apt install redis-server -y
+```
+
+Enable Redis to start on boot:
+```bash
+sudo systemctl enable redis-server
+sudo systemctl start redis-server
+```
+
+*(Note: If you use AmanaFlow cPanel/CyberPanel hosting, Redis is usually pre-installed and available with 1-click).*
+
+### Step 2: Configure Redis Memory (Optional but Recommended)
+By default, Redis might consume all your RAM if not limited. Edit `/etc/redis/redis.conf`:
+```text
+maxmemory 256mb
+maxmemory-policy allkeys-lru
+```
+*Restart Redis after applying.*
+
+### Step 3: Connect WordPress via LiteSpeed Cache
+We highly recommend using the free **LiteSpeed Cache (LSCache)** plugin over the default "Redis Object Cache" plugin for better server-level integration.
+
+1. In your WordPress Dashboard, go to **LiteSpeed Cache > Cache > Object**.
+2. Turn **Object Cache** to `ON`.
+3. Method: `Redis`.
+4. Host: `127.0.0.1`
+5. Port: `6379`
+6. Click **Save Changes**.
+
+Refresh the page. You should now see a green "Connection Test: Passed" message.
+
+---
+
+<ProductMarketing 
+  title="Need Enterprise Redis Caching?"
+  description="Every AmanaFlow WordPress Hosting plan includes dedicated Redis containers to ensure lightning-fast database performance."
+  cta="View Premium Plans"
+  link="/wordpress-hosting"
+  type="shared"
+/>
+
+---
+
+## Measuring the Impact
+After enabling Redis on a standard WooCommerce store:
+- **Admin Dashboard Speed:** Product catalog loads will decrease from ~2 seconds to ~300ms.
+- **CPU Usage:** Server CPU loads will drop significantly because MySQL is handling 80% fewer repetitive queries.
+
+## FAQs
+**Q: Can I share one Redis instance across multiple WordPress sites?**  
+A: Yes, but you MUST assign a different `Global Group` or `Site ID` prefix in the LiteSpeed Cache settings for each website. Otherwise, users will see data belonging to other websites!

@@ -1,0 +1,58 @@
+---
+title: "Understanding DNS Records: A, CNAME, TXT, and MX Explained"
+description: "Demystifying the DNS Zone Editor. Learn exactly what A-Records do, when to use a CNAME, and why TXT records are critical for email deliverability."
+date: "2026-03-24"
+category: "Domains & DNS"
+image: "/images/blog/vps_optimization_featured.png"
+---
+
+<TLDR>
+**DNS Simplified:** The A-Record points your domain to your Web Hosting Server. The MX Record directs your emails to your Email Hosting Server. The Zone Editor tells traffic exactly where to go.
+</TLDR>
+
+## The Switchboard of your Domain
+Buying a domain name (`yourstartup.com`) does absolutely nothing on its own. A domain is just an empty label until you configure its **DNS Records** inside the Zone Editor (found in cPanel, Cloudflare, or AmanaFlow Client Area).
+
+If someone types your URL, a specific DNS record tells them where the website lives. If they send you an email, a completely different record routing the email.
+
+### 1. The A-Record (Address Record)
+This is the most fundamental record. It maps a hostname directly to an **IPv4 Address**.
+- **Name:** `@` (represents the root domain `yourstartup.com`)
+- **Type:** `A`
+- **Value:** `192.168.1.50` (The IP of your AmanaFlow VPS)
+
+### 2. The CNAME (Canonical Name)
+A CNAME never points to an IP address. It only points to *another domain name*. It acts like an alias.
+- **Name:** `www`
+- **Type:** `CNAME`
+- **Value:** `yourstartup.com`
+*(This means if someone visits `www.yourstartup.com`, the server automatically forwards them to the root A-Record without you needing to update the IP address twice).*
+
+### 3. The MX Record (Mail Exchange)
+Web hosting and Email hosting are often completely separate servers. MX records tell the internet where to deliver emails addressed to `@yourstartup.com`.
+- **Name:** `@`
+- **Type:** `MX`
+- **Priority:** `10`
+- **Value:** `mail.yourstartup.com` (or `aspmx.l.google.com` if using Google Workspace).
+
+---
+
+<ProductMarketing 
+  title="Need Enterprise Email?"
+  description="Stop sending client proposals from a Gmail address. AmanaFlow Business Email provides secure, spam-free inboxes with 1-click DNS configuration."
+  cta="View Business Email"
+  link="/business-email"
+  type="shared"
+/>
+
+---
+
+### 4. The TXT Record (Textual Data)
+TXT records hold machine-readable text used to verify domain ownership. 
+If you sign up for Google Search Console, Google will ask you to create a TXT record with a random code (`google-site-verification=xyz...`). Google's bots check your DNS; if they see the code, they know you own the domain.
+
+TXT records are also absolutely critical for **Email Deliverability** (SPF, DKIM, and DMARC).
+
+## FAQs
+**Q: Can I have an A-Record and a CNAME for the exact same subdomain?**  
+A: No. A CNAME record cannot coexist with any other record type for the same hostname. A CNAME essentially says "ignore everything else, just follow this alias." If you put an A-Record and a CNAME on the root `@`, your DNS will break entirely.

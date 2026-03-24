@@ -1,0 +1,49 @@
+---
+title: "Connecting Your Hosting to FileZilla (FTP Guide)"
+description: "Learn how to manage your website files like a pro. A step-by-step guide to setting up and using FileZilla for high-speed FTP access."
+date: "2026-03-24"
+category: "Tutorials"
+---
+
+<TLDR>
+**Quick Summary:** FTP (File Transfer Protocol) allows you to drag and drop files directly between your computer and your server. **FileZilla** is the industry-standard free tool to do this securely.
+</TLDR>
+
+## What is FTP?
+FTP is a standard protocol used to transfer files from a local computer to a web server. It’s much faster than using the browser-based cPanel File Manager, especially for large folders or entire website migrations.
+
+### Step 1: Download FileZilla
+Download the **FileZilla Client** (not the Server) from [filezilla-project.org](https://filezilla-project.org/). It’s available for Windows, Mac, and Linux.
+
+---
+
+## Step 2: Find Your FTP Credentials
+Log in to your AmanaFlow Welcome Email or navigate to **cPanel > FTP Accounts**. You will need:
+- **Host**: Your domain name or server IP.
+- **Username**: Your cPanel username.
+- **Password**: Your cPanel password.
+- **Port**: 21 (for standard FTP) or 22 (for SFTP).
+
+## Step 3: Connecting Your Account
+1. Open FileZilla.
+2. Go to **File > Site Manager**.
+3. Click "New Site" and name it "AmanaFlow".
+4. Enter your Host, Username, and Password.
+5. Set the Protocol to **SFTP (SSH File Transfer Protocol)** for maximum security.
+6. Click **Connect**.
+
+---
+
+## Step 4: Managing Files
+- **Left Side**: Your Computer.
+- **Right Side**: Your Server.
+To upload a file, simply drag it from the left to the right. The files for your public website belong in the `/public_html` directory.
+
+---
+
+## FAQ
+**Q: Which is better, FTP or SFTP?**  
+A: **SFTP** is much safer as it encrypts your password and data during the transfer. AmanaFlow supports both.
+
+**Q: Why do I get a "Connection Timed Out" error?**  
+A: This is usually because your firewall is blocking Port 21 or 22. Ensure FileZilla is allowed in your computer's security settings.

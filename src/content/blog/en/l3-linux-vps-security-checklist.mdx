@@ -1,0 +1,61 @@
+---
+title: "The Ultimate L3 Linux VPS Security Checklist (2026)"
+description: "Lock down your unmanaged VPS before you get hacked. A comprehensive guide to SSH hardening, UFW firewalls, and Fail2Ban configurations."
+date: "2026-03-24"
+category: "Cloud Infrastructure"
+image: "/images/blog/managed_vps_security_featured.png"
+---
+
+<TLDR>
+**Zero Trust:** An unmanaged VPS connected to the public internet will be targeted by brute-force bots within 5 seconds of booting up. Changing your SSH port and disabling Root login is mandatory.
+</TLDR>
+
+## The Reality of Unmanaged Servers
+When you deploy an unmanaged cloud instance (like an AmanaFlow Linux VPS), you get incredible power and root access. But with that power comes the sole responsibility for security.
+
+Here is the exact checklist our L3 System Admins use when provisioning managed environments.
+
+### 1. SSH Hardening
+The default SSH configuration is dangerous. Open `/etc/ssh/sshd_config` and apply these rules:
+- **Disable Root Login:** `PermitRootLogin no`
+- **Use Key-based Auth Only:** `PasswordAuthentication no`
+- **Change Default Port:** `Port 2222` (or any random high port)
+
+*Restart the SSH daemon to apply.*
+
+### 2. Uncomplicated Firewall (UFW)
+Never leave unnecessary ports open to the world.
+```bash
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow 2222/tcp # Your new SSH port
+sudo ufw allow 80/tcp   # HTTP
+sudo ufw allow 443/tcp  # HTTPS
+sudo ufw enable
+```
+
+### 3. Fail2Ban Deployment
+Fail2Ban reads your server logs and automatically bans the IP addresses of bots trying to guess your passwords.
+Install it and set the ban time for repeated offenders to at least 24 hours.
+
+---
+
+<ProductMarketing 
+  title="Too Complex? Go Managed."
+  description="Want the power of a dedicated VPS but don't want to spend your week configuring firewalls? Let AmanaFlow's L3 team handle the security for you."
+  cta="View Managed VPS"
+  link="/managed-vps-hosting"
+  type="vps"
+/>
+
+---
+
+### 4. Automatic Security Updates
+Configure `unattended-upgrades` on Ubuntu/Debian so your server patches kernel vulnerabilities without your intervention.
+
+### 5. Malware Scanning (Maldet / ClamAV)
+If you are hosting websites for clients, they *will* upload compromised plugins. Running weekly scans via Linux Malware Detect ensures compromises don't spread to the root filesystem.
+
+## FAQs
+**Q: Can AmanaFlow recover my server if I get locked out?**  
+A: Yes! Our client area offers absolute Out-of-Band management through an emergency VNC Console. You can access your server even if SSH is completely broken.

@@ -1,0 +1,49 @@
+---
+title: "Managing WordPress Multisite: A Complete Technical Guide"
+description: "One installation, infinite websites. Learn how to set up and manage a WordPress Multisite network for your agency or business empire."
+date: "2026-03-24"
+category: "WordPress"
+---
+
+<TLDR>
+**Quick Summary:** WordPress Multisite allows you to run multiple websites from a single WordPress installation. It's perfect for agencies managing client sites or businesses with multiple regional branches.
+</TLDR>
+
+## What is WordPress Multisite?
+Instead of installing WordPress 10 times for 10 websites, you install it once and enable the **Network** feature. All sites share the same core files, themes, and plugins, but they have separate media libraries and database tables.
+
+### When to use Multisite?
+- **Agencies**: Manage 50 client landing pages from one dashboard.
+- **Education**: A university giving every student their own blog.
+- **Enterprise**: A brand with different sites for different regions (e.g., `amanaflow.com`, `bd.amanaflow.com`).
+
+---
+
+## How to Enable Multisite (Step-by-Step)
+
+### 1. Edit wp-config.php
+Add this line above the `/* That's all, stop editing! */` comment:
+`define( 'WP_ALLOW_MULTISITE', true );`
+
+### 2. Network Setup
+In your WP-Admin, go to **Tools > Network Setup**. Choose between **Subdomains** (site1.example.com) or **Subdirectories** (example.com/site1).
+
+### 3. Update Site Configuration
+WordPress will provide two blocks of code. One for your `wp-config.php` and one for your `.htaccess` file. Update these files via your AmanaFlow File Manager.
+
+---
+
+## Managing Your Network
+As the **Super Admin**, you control which plugins and themes are available to all sites. Individual site admins can activate them, but they cannot install new ones.
+
+### Scaling Multisite on AmanaFlow
+Multisite is resource-intensive. For networks with more than 5-10 active sites, we strongly recommend a **Managed VPS** with AMD EPYC cores to handle the increased database load and concurrent traffic.
+
+---
+
+## FAQ
+**Q: Can each site have its own domain?**  
+A: Yes! This is called "Domain Mapping." You can map `site1.net` to your multisite subdirectory seamlessly.
+
+**Q: Will a plugin crash all sites if it fails?**  
+A: Yes. Since they share the same plugin files, a critical error in one can affect the entire network. Testing on a [Staging Site](/blog/wordpress-staging-tutorial) is mandatory.

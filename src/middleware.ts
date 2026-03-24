@@ -1,16 +1,19 @@
 import createMiddleware from 'next-intl/middleware';
-import { locales } from './i18n';
+import {locales} from './i18n';
 
 export default createMiddleware({
-  locales: locales,
+  // A list of all locales that are supported
+  locales,
+
+  // Used when no locale matches
   defaultLocale: 'en',
-  // Configure redirect behavior: 
-  // We leave default locale prefix out of URL by default, or you can force it in URL.
-  // For better SEO, English (default) without prefix, Bengali with /bn/ prefix.
+  
+  // Use standard routing configuration
   localePrefix: 'as-needed'
 });
 
 export const config = {
-  // Match only internationalized pathnames
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)']
+  // We disable the matcher because we DO NOT use a `src/app/[locale]` folder structure. 
+  // If we match here, next-intl will rewrite the URL to `/en/...` and throw a 404.
+  matcher: []
 };

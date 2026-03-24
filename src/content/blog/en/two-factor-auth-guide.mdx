@@ -1,0 +1,51 @@
+---
+title: "Two-Factor Authentication (2FA) for cPanel & WHMCS"
+description: "Passwords are no longer enough. Learn how to implement 2FA to add a physical layer of security to your hosting management accounts."
+date: "2026-03-24"
+category: "Security"
+image: "/images/blog/managed_vps_security_featured.png"
+---
+
+<TLDR>
+**Quick Summary:** 2FA requires both your password and a code from your phone (using Google Authenticator or Authy) to log in. This prevents attackers from accessing your account even if they steal your password.
+</TLDR>
+
+## Why Password-Only Security is Dead
+In 2026, AI-driven botnets can brute-force billions of passwords per hour. Sophisticated phishing attacks can trick even experienced users into revealing their credentials. **Two-Factor Authentication (2FA)** makes those stolen passwords useless.
+
+### Step 1: Enable 2FA in cPanel
+1. Log in to cPanel.
+2. Search for **Two-Factor Authentication** in the Security section.
+3. Click "Set Up Two-Factor Authentication."
+4. Scan the QR code with your mobile app (Google Authenticator, Authy, or Bitwarden).
+5. Enter the 6-digit code and click "Configure."
+
+---
+
+## Step 2: Enable 2FA in WHMCS (If you are a Reseller)
+As an admin selling hosting, your account is even more critical.
+1. Log in to WHMCS Admin.
+2. Go to **Setup > Staff Management > Two-Factor Authentication**.
+3. Choose "Time Based One Time Password" (TOTP).
+4. Individual staff members can now enable 2FA in their "My Account" settings.
+
+---
+
+## Recovery Codes: Don't Lose Them!
+When you enable 2FA, the system will give you a list of "Recovery Codes." **Write these down on paper.** If you lose your phone or it breaks, these codes are the ONLY way to regain access to your hosting account without a long manual verification process with our support team.
+
+---
+
+## The AmanaFlow Standard
+At AmanaFlow, we strongly recommend 2FA for every user. It’s a free, 30-second setup that provides enterprise-grade protection for your digital business.
+
+[Secure your Account Now](/web-hosting)
+
+---
+
+## FAQ
+**Q: Can I use SMS for 2FA?**  
+A: SMS is less secure than app-based 2FA as it can be vulnerable to "SIM Swapping" attacks. We always recommend app-based TOTP.
+
+**Q: Does it slow down my login?**  
+A: It adds 5-10 seconds to the process, but the security peace of mind is worth every second.

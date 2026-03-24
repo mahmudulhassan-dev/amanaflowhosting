@@ -1,0 +1,58 @@
+---
+title: "WordPress Performance: Setting up LSCache for Lightning Speed"
+description: "Stop using heavy caching plugins. Learn how to configure the native LiteSpeed Cache (LSCache) for 100/100 Core Web Vitals scores."
+date: "2026-03-24"
+category: "WordPress"
+---
+
+<TLDR>
+**Quick Summary:** LSCache is a server-level caching solution. To get started, install the LiteSpeed Cache plugin on WordPress, enable Page Caching, and connect to QUIC.cloud for global CDN and image optimization.
+</TLDR>
+
+## Why LSCache?
+Generic caching plugins (like WP Rocket) generate static HTML files and use PHP to serve them. **LSCache** resides in the server core. It serves the cache *before* PHP even starts. This leads to a massive reduction in **TTFB (Time to First Byte)**.
+
+### Step 1: Installation
+1. Go to your WordPress Dashboard > Plugins > Add New.
+2. Search for "LiteSpeed Cache" and click **Install**.
+3. Activate the plugin.
+
+---
+
+## Step 2: Essential Configuration
+
+### A. Enable Cache
+Go to **LiteSpeed Cache > Cache > [1] Cache**. Set "Enable Cache" to **ON**. This starts the basic server-level static page generation.
+
+### B. Minify & Combine (Page Optimization)
+Go to **Page Optimization > [1] CSS Settings**.
+- Enable **CSS Minify**.
+- Enable **CSS Combine** (Only if you are NOT on HTTP/2 or 3, otherwise skip).
+- Enable **Generate Critical CSS**.
+
+### C. Image Optimization
+Don't use separate plugins like Smush. Go to **Image Optimization > [2] Optimization Settings**. Enable **Auto Request Optimization** and **Lossless Compression**.
+
+---
+
+## Step 3: Connect to QUIC.cloud
+To get the most out of LiteSpeed, you need a **Domain Key** from QUIC.cloud. This enables:
+- Global CDN with anycast DNS.
+- Image optimization on cloud servers (offloading work from your VPS).
+- Low-latency data delivery globally.
+
+---
+
+## Monitoring Success
+After configuring, check your site on **PageSpeed Insights**. You should see a significant jump in your mobile and desktop scores. AmanaFlow customers typically achieve **95-100** scores on the first try.
+
+[Explore Managed WordPress Hosting](/wordpress-hosting)
+
+---
+
+## FAQ
+**Q: Can I use LSCache on other hosts?**  
+A: It works best on hosts like AmanaFlow that use the LiteSpeed Web Server. On Apache hosts, it works as a standard (and slower) file-based cache.
+
+**Q: Will it break my site?**  
+A: Caching can sometimes break CSS. If it does, simply disable "CSS Combine" and "Load CSS Asynchronously," and test again.

@@ -1,0 +1,52 @@
+---
+title: "LiteSpeed Enterprise vs Apache: Benchmarking WordPress Performance"
+description: "Why AmanaFlow completely replaced Apache on all shared hosting platforms. The real-world difference in TTFB and Concurrent Connections."
+date: "2026-03-24"
+category: "WordPress Excellence"
+image: "/images/blog/wordpress_excellence_featured.png"
+---
+
+<TLDR>
+**Performance First:** LiteSpeed Web Server handles up to 84x more concurrent WordPress connections than Apache while consuming drastically less RAM and CPU.
+</TLDR>
+
+## The Legacy of Apache
+Apache has powered the internet since the 1990s. It is incredibly stable and highly compatible. But it relies on a process-based architecture—meaning for every new visitor connecting to your site, Apache spins up a new process or thread. 
+
+When you get hit with a traffic spike, Apache exhausts your server's RAM rapidly, causing crashes.
+
+### The LiteSpeed Revolution
+LiteSpeed Enterprise was engineered specifically to solve high-concurrency architectures. It uses an **event-driven architecture** (similar to Nginx) but is 100% drop-in compatible with Apache’s `.htaccess` files.
+
+This is critical. You get the speed of Nginx without breaking any of your WordPress rewriting plugins.
+
+### Real-World Benchmarks
+In our internal stress tests of a standard WooCommerce store on a 4-core VPS:
+- **Apache + Mod_PHP:** ~40 Requests per Second before crashing.
+- **Nginx + PHP-FPM:** ~1,100 Requests per Second.
+- **LiteSpeed + LSAPI + LSCache:** **~4,800 Requests per Second.**
+
+### The Secret Weapon: LSCache
+LiteSpeed isn't just a web server; it's a server-level caching engine. 
+
+Most WordPress caching plugins (like WP Rocket) execute at the PHP application level. This means PHP still has to load to serve the cached page.
+LiteSpeed Cache (LSCache) executes at the server level. It bypasses PHP entirely. To the server, your dynamic WordPress site suddenly behaves like lightweight static HTML files.
+
+---
+
+<ProductMarketing 
+  title="Powered by LiteSpeed Enterprise"
+  description="Every AmanaFlow Web Hosting and WordPress Hosting plan comes with LiteSpeed Web Server and LSCache included at no extra cost."
+  cta="View Fast WordPress Hosting"
+  link="/wordpress-hosting"
+  type="shared"
+/>
+
+---
+
+## Migration is Painless
+Because LiteSpeed reads existing `.htaccess` configurations, migrating an Apache-hosted WordPress site to AmanaFlow requires absolutely no code changes on your end.
+
+## FAQs
+**Q: Does LiteSpeed support HTTP/3 & QUIC?**  
+A: Yes, LiteSpeed pioneered HTTP/3 implementation long before Apache or Nginx. It is fully enabled across the AmanaFlow global network.

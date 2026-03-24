@@ -1,0 +1,56 @@
+---
+title: "Getting Started with Linux VPS: A Developer's Handbook"
+description: "Just got your first VPS? Learn the essential SSH commands, security hardening steps, and environment setup for modern web development."
+date: "2026-03-24"
+category: "VPS & Cloud"
+---
+
+<TLDR>
+**Quick Summary:** Managing a VPS requires comfort with the command line (Terminal). Start by setting up SSH keys, updating your packages, and configuring a basic firewall (UFW) before installing your stack.
+</TLDR>
+
+## Introduction to the CLI
+When you buy a VPS from AmanaFlow, you get a clean slate. No bloatware, just the OS (usually Ubuntu or AlmaLinux). The first step is connecting via **SSH (Secure Shell)**.
+
+`ssh root@your_server_ip`
+
+### The First 3 Commands You Must Run
+1. `sudo apt update && sudo apt upgrade -y` (Keep your system safe).
+2. `hostnamectl set-hostname your-brand-name` (Identify your server).
+3. `timedatectl set-timezone UTC` (Sync your logs correctly).
+
+---
+
+## Basic Security Hardening
+
+### 1. Create a Non-Root User
+Running everything as root is dangerous. Create a new user with sudo privileges.
+`adduser devuser`
+`usermod -aG sudo devuser`
+
+### 2. Disable Password Login
+Passwords can be guessed or brute-forced. Use SSH Keys instead. Copy your public key to the server:
+`ssh-copy-id devuser@your_server_ip`
+
+### 3. Configure a Firewall
+Only allow the ports you need.
+`ufw allow OpenSSH`
+`ufw allow 80/tcp` (HTTP)
+`ufw allow 443/tcp` (HTTPS)
+`ufw enable`
+
+---
+
+## Installing Your Stack
+Whether you're a Node.js developer or a Python enthusiast, your VPS is your playground. We recommend using **Docker** for containerized apps, or **Nginx** as a reverse proxy to handle multiple applications on one IP.
+
+[View Managed VPS Pricing](/vps-hosting)
+
+---
+
+## FAQ
+**Q: What if I lock myself out?**  
+A: AmanaFlow provides an "Emergency Console" in your dashboard that allows access even if SSH is blocked.
+
+**Q: Which Linux Distro should I choose?**  
+A: For beginners, **Ubuntu 24.04 LTS** has the most tutorials. For stability-focused enterprises, **AlmaLinux** is the industry standard.

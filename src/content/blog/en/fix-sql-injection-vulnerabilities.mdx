@@ -1,0 +1,47 @@
+---
+title: "SQL Injection: How to Audit and Fix Vulnerabilities"
+description: "Protect your database from the most common web attack. Learn how SQLi works and how to prevent it using 'Parameterized Queries'."
+date: "2026-03-24"
+category: "Security"
+---
+
+<TLDR>
+**Quick Summary:** SQL Injection (SQLi) allows attackers to "trick" your application into executing malicious database commands. The solution is simple: Never trust user input. Always use Prepared Statements.
+</TLDR>
+
+## How SQL Injection Works
+Imagine a login form. Typically, the code might look like this:
+`SELECT * FROM users WHERE username = '$username' AND password = '$password'`
+
+If an attacker enters `' OR '1'='1` in the username field, the query becomes:
+`SELECT * FROM users WHERE username = '' OR '1'='1' AND password = ''`
+The database will return the first user (usually the Admin) because `1=1` is always true. 
+
+---
+
+## 3 Pillars of SQLi Prevention
+
+### 1. Prepared Statements (Parameterized Queries)
+This is the gold standard. Instead of sending the full query as a string, you send the "template" first and then send the data separately. The database treats the data as literal text, never as part of the command.
+
+### 2. Input Validation & Sanitization
+Only allow the characters you expect. If you're asking for a phone number, don't allow letters or symbols like `'` or `--`.
+
+### 3. Principle of Least Privilege
+Your web application should not connect to the database using the "Root" user. Create a specific user that only has access to the database tables it actually needs.
+
+---
+
+## Auditing Your Own Site
+Use tools like **SQLMap** or **OWASP ZAP** to scan your applications for potential entry points. At AmanaFlow, our **WAF (Web Application Firewall)** automatically detects and blocks 99% of SQLi attempts at the network edge.
+
+[Secure Hosting for Your Apps](/web-hosting)
+
+---
+
+## FAQ
+**Q: Does WordPress protect against SQLi?**  
+A: Yes, the WordPress core uses the `$wpdb->prepare()` function. However, poorly coded plugins often introduce vulnerabilities.
+
+**Q: Can SQLi delete my entire database?**  
+A: Yes. If the user has "DELETE" or "DROP" privileges, an attacker can wipe your entire data infrastructure with a single line of code.

@@ -1,0 +1,65 @@
+---
+title: "How to Recover a Hacked WordPress Website (Emergency Protocol)"
+description: "Are there Japanese characters in your Google search results? Is your site redirecting to crypto scams? Read this step-by-step malware recovery guide."
+date: "2026-03-24"
+category: "Wordpress Excellence"
+image: "/images/blog/managed_vps_security_featured.png"
+---
+
+<TLDR>
+**DO NOT PANIC:** When a WordPress site is hacked, the malware usually hides in the `wp-content/plugins` folder or the database. Replacing all core files and restoring a clean backup is the only guaranteed fix.
+</TLDR>
+
+## The Symptoms of Infection
+You probably didn't realize you were hacked until a customer complained. Common signs include:
+- The **"Japanese Keyword Hack"** (Google shows random symbols for your site).
+- Instant redirects to fake pharmacy or gambling websites.
+- A sudden massive spike in CPU usage on your AmanaFlow control panel (hackers using your server to mine crypto).
+- Getting a giant red "Deceptive site ahead" warning from Google Chrome.
+
+### Step 1: Quarantine the Site
+Do not try to log into `wp-admin` right now; the hacker might have keyloggers installed.
+Log into your cPanel or server and take the site offline using maintenance mode or temporarily renaming your `index.php` file to stop the malicious code from executing.
+
+### Step 2: The Backup Check (The Easy Way)
+Do you use AmanaFlow's JetBackup or a plugin like UpdraftPlus?
+Check the backup dates. If you were hacked on Wednesday, restore the full backup from Sunday. 
+**Crucial Step:** Once restored, immediately update all plugins, themes, and change all passwords. Hackers use out-of-date plugins to break in; if you restore the backup but don't update the vulnerable plugin, you will just be hacked again tomorrow.
+
+### Step 3: Manual Core Replacement (The Hard Way)
+If you don't have backups, you must manually excise the cancer.
+1. Download a fresh, clean zip of WordPress from `wordpress.org`.
+2. Go to your File Manager (`public_html`).
+3. Delete the `wp-admin` and `wp-includes` folders entirely. (Malware loves hiding here).
+4. Do **NOT** delete `wp-content` or `wp-config.php`.
+5. Upload and extract the fresh `wp-admin` and `wp-includes` folders from your downloaded zip to replace the infected ones.
+
+### Step 4: The Plugin Audit
+Navigate into `wp-content/plugins`. 
+Hackers often leave a backdoor masquerading as a legitimate plugin (e.g., a folder called `wp-cache-core`). Look at the "Last Modified" dates. If a random folder was modified two days ago, delete it.
+
+Install **Wordfence Security** immediately and run an exhaustive High-Sensitivity Scan to find any remaining backdoors in your Theme files.
+
+---
+
+<ProductMarketing 
+  title="Automated Disaster Recovery"
+  description="Never lose sleep over a hack again. All AmanaFlow Shared and Reseller accounts include automated, daily offsite snapshots via JetBackup 5."
+  cta="View Hosting Features"
+  link="/web-hosting"
+  type="shared"
+/>
+
+---
+
+### Step 5: Database Cleaning
+Hackers often inject malicious JavaScript directly into the `wp_posts` or `wp_options` tables via SQL Injection.
+Log into phpMyAdmin. Look at your `wp_options` table. Ensure the `siteurl` and `home` values haven't been changed to a malicious domain.
+
+## Requesting a Google Review
+If Chrome flagged your site as dangerous, fixing it isn't enough. You must explicitly tell Google to rescan it.
+Log into **Google Search Console**, navigate to the *Security Issues* tab, and click **Request a Review**. Explain exactly how you removed the malware. Google will remove the red warning screen within 24 to 72 hours.
+
+## FAQs
+**Q: Can a hacker infect other websites on my cPanel?**  
+A: If you have Addon Domains sharing the same `public_html` root, absolute yes. A hacker exploiting one WordPress site can easily navigate the directory tree and infect every Addon domain. This is why you should always separate sites into different cPanel accounts using Reseller Hosting.

@@ -1,0 +1,70 @@
+---
+title: "Migrating from cPanel to CyberPanel: A System Admin's Guide"
+description: "Why pay exorbitant cPanel license fees? Learn how to smoothly migrate your web hosting environment to the OpenLiteSpeed powered CyberPanel."
+date: "2026-03-24"
+category: "Server Administration"
+image: "/images/blog/whmcs_automation_featured.png"
+---
+
+<TLDR>
+**Cost vs Speed:** Migrating to CyberPanel not only eliminates your monthly $40+ cPanel license fee but also naturally upgrades your sites to the blazing-fast OpenLiteSpeed backend.
+</TLDR>
+
+## The cPanel Price Hike Problem
+In recent years, cPanel moved from a per-server pricing model to a per-account pricing model. For agencies hosting hundreds of small WordPress sites on a single VPS, their monthly licensing fees quadrupled overnight.
+
+**CyberPanel** is completely free (open-source) and integrates natively with OpenLiteSpeed. This makes it the absolute best alternative for WordPress agencies looking to maximize ROI.
+
+### Migration Overview
+While there is no "Magic Wand" 1-click migration that perfectly converts everything without human intervention, CyberPanel provides an excellent command-line utility to pull cPanel accounts via SSH.
+
+### Step 1: Prepare the Source (cPanel) Server
+Generate a full backup of the accounts you wish to migrate on your cPanel server.
+1. Log into WHM.
+2. Ensure you know the root password for the server.
+3. Keep the server online.
+
+### Step 2: Prepare the Destination (CyberPanel) Server
+Deploy a fresh AmanaFlow VPS running Ubuntu 22.04 and install CyberPanel.
+```bash
+sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cyberpanel.net/install.sh)
+```
+Follow the interactive prompts to install OpenLiteSpeed, Memcached, and Redis.
+
+### Step 3: Pushing Accounts Automatically
+CyberPanel provides an internal tool specifically designed to fetch cPanel accounts.
+Log into your new CyberPanel VPS via SSH as root:
+```bash
+cyberpanel cPanelImport
+```
+The script will prompt you for:
+- The IP address of the cPanel server.
+- The root password of the cPanel server.
+- Which specific cPanel usernames to import.
+
+### Step 4: Post-Migration DNS Fixes
+The biggest issue when migrating panels is DNS. 
+1. The tool will parse the `cpmove.tar.gz` files and extract databases, public_html, and email accounts.
+2. You must log into your Domain Registrar (or Cloudflare) and point the domain's A-Record to the **new** CyberPanel IP address.
+
+---
+
+<ProductMarketing 
+  title="Need a New Server for CyberPanel?"
+  description="Deploy a Linux VPS specifically optimized for OpenLiteSpeed environments."
+  cta="Deploy Cloud VPS"
+  link="/vps-hosting"
+  type="vps"
+/>
+
+---
+
+## Validating LiteSpeed Cache
+Once the DNS propagates, log into the WordPress dashboard of the migrated site.
+1. Uninstall whatever older caching plugin was used (WP Rocket, W3 Total Cache).
+2. Install the free **LiteSpeed Cache plug-in** from the repository.
+3. Enable object caching via the Redis instance you installed in Step 2.
+
+## FAQs
+**Q: Will CyberPanel migrate my emails perfectly?**  
+A: Usually, yes. CyberPanel extracts the Maildir directories from the cPanel archive. However, email passwords sometimes require resetting due to different hashing algorithms.

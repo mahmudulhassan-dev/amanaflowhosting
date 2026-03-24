@@ -1,38 +1,55 @@
 import * as React from "react";
 import Link from "next/link";
-import { Phone, Mail, User, ShieldCheck } from "lucide-react";
+import { Phone, Mail, User } from "lucide-react";
+import { CurrencyToggle } from "@/components/ui/CurrencyToggle";
+import { LanguageToggle } from "@/components/ui/LanguageToggle";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { useTranslations } from "next-intl";
 
 export function Topbar() {
+  const t = useTranslations("Topbar");
   return (
-    <div className="hidden w-full bg-surface-950 text-surface-300 py-2 text-sm md:block border-b border-surface-800">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+    <div className="hidden w-full bg-surface-950 text-surface-400 py-1.5 text-xs md:block border-b border-surface-900 relative z-[60]">
+      <div className="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8 font-medium">
         
-        {/* Contact & Status */}
-        <div className="flex items-center gap-6">
-          <a href="tel:+880123456789" className="flex items-center gap-2 hover:text-white transition-colors">
-            <Phone size={14} className="text-primary-500" />
-            <span>+880 1234 567 890</span>
-          </a>
-          <a href="mailto:support@amanaflow.cloud" className="flex items-center gap-2 hover:text-white transition-colors">
-            <Mail size={14} className="text-primary-500" />
+        {/* Contact info */}
+        <div className="flex items-center gap-5">
+           <span className="flex items-center gap-1.5">
+             <span className="text-surface-500">{t("support")}</span>
+             <a href="tel:+8801234567890" className="flex items-center gap-1.5 hover:text-white transition-colors">
+               <Phone size={12} className="text-primary-500" />
+               <span>+880 1234 567 890</span>
+             </a>
+           </span>
+          <a href="mailto:support@amanaflow.cloud" className="flex items-center gap-1.5 hover:text-white transition-colors">
+            <Mail size={12} className="text-primary-500" />
             <span>support@amanaflow.cloud</span>
           </a>
-          <div className="flex items-center gap-2">
-            <ShieldCheck size={14} className="text-success-500" />
-            <span className="text-success-500 font-medium">System Status: 100% Operational</span>
-          </div>
         </div>
 
-        {/* Auth Links (Future WHMCS Bridge) */}
+        {/* Right side: Controls & Auth */}
         <div className="flex items-center gap-4">
-          <Link href="/auth/login" className="flex items-center gap-2 hover:text-white transition-colors">
-            <User size={14} />
-            <span>Client Login</span>
-          </Link>
-          <span className="text-surface-700">|</span>
-          <Link href="/auth/register" className="hover:text-white transition-colors">
-            Register
-          </Link>
+          <div className="flex items-center gap-1">
+            <CurrencyToggle />
+            <div className="w-px h-3 bg-surface-800 mx-1" />
+            <LanguageToggle />
+            <div className="w-px h-3 bg-surface-800 mx-1" />
+            <div className="flex items-center scale-90">
+              <ThemeToggle />
+            </div>
+          </div>
+          
+          <div className="w-px h-3 bg-surface-800 mx-1" />
+
+          <div className="flex items-center gap-4">
+            <Link href="/login" className="flex items-center gap-1.5 hover:text-white transition-colors group">
+              <User size={12} className="text-surface-500 group-hover:text-primary-400 transition-colors" />
+              <span>{t("login")}</span>
+            </Link>
+            <Link href="/register" className="hover:text-white transition-colors">
+              {t("register")}
+            </Link>
+          </div>
         </div>
 
       </div>

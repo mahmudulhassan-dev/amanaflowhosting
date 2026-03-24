@@ -1,0 +1,52 @@
+---
+title: "How to Install an SSL Certificate on a VPS (Nginx/Apache)"
+description: "Master the command line. A guide to installing free Let's Encrypt SSL certificates using Certbot for your Linux VPS."
+date: "2026-03-24"
+category: "Tutorials"
+---
+
+<TLDR>
+**Quick Summary:** SSL is non-negotiable in 2026. Use **Certbot** to automatically generate and install a free SSL certificate. It handles the domain verification and updates your Nginx or Apache config for you.
+</TLDR>
+
+## Why SSL via Command Line?
+If you are using a "Bare Metal" or unmanaged VPS, you don't have a cPanel interface to click "AutoSSL." You need to handle it manually. Luckily, **Let's Encrypt** has made this incredibly easy.
+
+### Step 1: Install Certbot
+On Ubuntu/Debian:
+`sudo apt update`
+`sudo apt install certbot python3-certbot-nginx` (for Nginx)
+`sudo apt install certbot python3-certbot-apache` (for Apache)
+
+---
+
+### Step 2: Run the Installer
+Certbot will look at your configuration and find which domains need a certificate.
+`sudo certbot --nginx` OR `sudo certbot --apache`
+
+Follow the prompts:
+- Enter your email (for renewal notices).
+- Agree to the Terms of Service.
+- Choose which domains to activate (Select All).
+- **CRITICAL**: Choose "Redirect" to ensure all HTTP traffic goes to HTTPS.
+
+### Step 3: Verify Auto-Renewal
+Let's Encrypt certificates expire every 90 days. Certbot adds a "Cron Job" to your server to handle this automatically. Test it with:
+`sudo certbot renew --dry-run`
+
+---
+
+## Security Hardening (HSTS)
+Once SSL is active, add the **HSTS (HTTP Strict Transport Security)** header to your config. This tells browsers to *only ever* connect via HTTPS, preventing "Man-in-the-Middle" attacks.
+
+[Get a Powered-up VPS with NVMe](/vps-hosting)
+
+---
+
+## FAQ
+**Q: Can I use a custom Paid SSL (EV/OV)?**  
+A: Yes. You will need to manually paste your CSR and Private Key into your `/etc/ssl/` directory and update your server block manually.
+
+**Q: What if I have a Firewall (UFW)?**  
+A: Ensure Port 80 (HTTP) and Port 443 (HTTPS) are open, or Certbot will fail to verify your domain.
+`sudo ufw allow 'Nginx Full'`

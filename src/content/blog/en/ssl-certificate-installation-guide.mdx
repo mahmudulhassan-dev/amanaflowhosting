@@ -1,0 +1,73 @@
+---
+title: "The Zero-Downtime SSL Installation Guide (Certbot & Let's Encrypt)"
+description: "Stop paying for basic SSL certificates. Learn how to automatically issue, install, and renew free wildcard SSL certificates via the command line."
+date: "2026-03-24"
+category: "Web Security"
+image: "/images/blog/whmcs_automation_featured.png"
+---
+
+<TLDR>
+**Automated Security:** Let's Encrypt provides free, enterprise-grade SSL certificates valid for 90 days. Certbot is the command-line tool that installs them and sets up a cronjob to automatically renew them forever.
+</TLDR>
+
+## The Death of the Paid SSL
+Ten years ago, buying an SSL certificate was a costly, complicated process involving CSR generation and email validations. Today, unless you are a bank requiring Extended Validation (the green bar), you should absolutely be using **Let's Encrypt**. 
+
+If you are on an unmanaged server without a control panel, here is how you secure your Nginx or Apache server in seconds.
+
+### Step 1: Install Certbot
+Certbot requires the `snapd` package manager, which comes pre-installed on modern Ubuntu distributions.
+
+SSH into your server and run:
+```bash
+sudo snap install core; sudo snap refresh core
+sudo snap install --classic certbot
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+```
+
+### Step 2: Issue the Certificate for Nginx
+Certbot is smart enough to read your Nginx configuration, verify domain ownership, and rewrite the server block for HTTPS automatically.
+
+Run the Nginx plugin:
+```bash
+sudo certbot --nginx
+```
+Certbot will ask:
+1. What email address to use for renewal notices.
+2. Which domains you want to activate HTTPs for (it reads your `server_name` directives).
+3. Whether you want to redirect all HTTP traffic to HTTPS (Always select **Yes / Option 2**).
+
+*If you are using Apache, simply run `sudo certbot --apache` instead.*
+
+### Step 3: Verifying the Auto-Renewal Cronjob
+Let's Encrypt certificates expire every 90 days. The `snap` package comes with a built-in systemd timer that checks for renewals twice a day.
+
+Test the renewal process with a dry-run to ensure you will never have an expired SSL:
+```bash
+sudo certbot renew --dry-run
+```
+If this succeeds, your server is secured forever.
+
+---
+
+<ProductMarketing 
+  title="Free AutoSSL Included Everywhere"
+  description="Don't want to use the command line? Every AmanaFlow shared and reseller plan comes with cPanel AutoSSL. Just click 'Install' and forget about it."
+  cta="View Web Hosting Plans"
+  link="/web-hosting"
+  type="shared"
+/>
+
+---
+
+## Wildcard Certificates via DNS Challenge
+If you need to secure `*.yourdomain.com` (for multisite networks or dynamic subdomains), Certbot cannot verify ownership by placing a file on your web server. It must use a **DNS Challenge**.
+
+```bash
+sudo certbot certonly --manual --preferred-challenges dns -d "*.yourdomain.com"
+```
+Certbot will output a specific TXT record string. You must log into your Domain Registrar, create the TXT record (`_acme-challenge.yourdomain.com`), wait for propagation, and press Enter in the terminal to verify.
+
+## FAQs
+**Q: My website shows a "Mixed Content" warning after installing SSL?**  
+A: Your certificate is fine! The warning means your HTML code is trying to load images or CSS scripts using `http://` instead of `https://`. Search your database and code for hardcoded `http://` links and update them.

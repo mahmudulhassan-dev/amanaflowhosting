@@ -1,0 +1,57 @@
+---
+title: "Preventing Domain Hijacking: The Power of Transfer Locks"
+description: "A successful social engineering attack on your domain registrar can put your startup out of business. How to lock down your high-value domains permanently."
+date: "2026-03-24"
+category: "Domains & DNS"
+image: "/images/blog/managed_vps_security_featured.png"
+---
+
+<TLDR>
+**Lock It Down:** Domain hijacking occurs when attackers steal your Authorization Code (EPP Key) to transfer your domain to their control. A Registrar Lock absolutely prevents this until you manually disable it.
+</TLDR>
+
+## Losing Your Digital Identity
+Imagine waking up, typing your company's domain name, and discovering it redirects to a malicious gambling website. Worse, your business email addresses (`ceo@yourcompany.com`) are now intercepting your private communications.
+
+This isn't a server hack. This is **Domain Hijacking**. 
+
+### How Hijacking Happens
+Domains don't get hacked via Brute Force anymore. They get stolen through Social Engineering.
+If an attacker compromises the email address associated with your AmanaFlow or Godaddy account, they can:
+1. Reset your Registrar password.
+2. Disable Domain Privacy.
+3. Request the **EPP Transfer Code**.
+4. Initiate a domain transfer to a foreign registrar in a jurisdiction that ignores ICANN takedown requests.
+
+Once the domain successfully transfers, getting it back involves a nightmare of expensive lawyers and ICANN dispute resolution policies. It can take months.
+
+### The Ultimate Defense: Registrar Lock
+A Registrar Lock (sometimes called a Transfer Lock or ClientTransferProhibited status) is a setting at the registry level that explicitly forbids the domain from being moved to another provider.
+
+Even if a hacker has your EPP code, if the Registrar Lock is **On**, the transfer request will be instantly rejected by the central registry (e.g., Verisign for `.com` domains).
+
+---
+
+<ProductMarketing 
+  title="Enterprise Domain Security"
+  description="Every domain registered with AmanaFlow automatically has Registrar Lock enforced by default. Your digital assets are safe with us."
+  cta="Secure Your Domain"
+  link="/domain-registration"
+  type="agency"
+/>
+
+---
+
+## The 60-Day Lock Rule
+By ICANN regulations, whenever you register a new domain, transfer a domain, or significantly change the ownership contact details (like the First Name or Email), the domain is placed under an absolute, irremovable 60-day transfer lock. 
+This is specifically designed to prevent "hit and run" hijackings, giving the original owner 2 months to notice the breach and reverse it.
+
+## Best Practices Checklist
+- [ ] Ensure **Registrar Lock** is toggled ON in your Client Area.
+- [ ] Turn ON **Domain Privacy** so attackers can't see your admin email.
+- [ ] Activate **2-Factor Authentication (2FA)** on your hosting/registrar account.
+- [ ] Ensure the email associated with the domain is heavily secured (e.g., Google Workspace with hardware security keys).
+
+## FAQs
+**Q: How do I actually transfer my domain if it's locked?**  
+A: Log into your AmanaFlow control panel. Turn the Registrar Lock toggle to the OFF position, and then click the button to reveal your EPP Code. You can then provide that code to your new registrar.

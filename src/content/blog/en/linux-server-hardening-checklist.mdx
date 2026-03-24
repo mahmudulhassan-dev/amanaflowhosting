@@ -1,0 +1,50 @@
+---
+title: "Hardening your Linux Server: A DevSecOps Checklist"
+description: "Going beyond default settings. A comprehensive guide to securing your Ubuntu or AlmaLinux server for production workloads."
+date: "2026-03-24"
+category: "Security"
+---
+
+<TLDR>
+**Quick Summary:** Default server installations are vulnerable. Secure your infrastructure by disabling root login, implementing SSH keys, and setting up a strict firewall policy.
+</TLDR>
+
+## The "First 10 Minutes" Rule
+As soon as a server is connected to the internet, it starts receiving automated login attempts. If you have a weak root password, you will be hacked within minutes.
+
+### 1. Disable Root Login
+Root is the ultimate target. Create a new user with `sudo` privileges and disable direct root access in your `/etc/ssh/sshd_config`.
+
+### 2. Update and Patch
+Run updates immediately:
+`sudo apt update && sudo apt upgrade -y` (Ubuntu)
+`sudo dnf update -y` (AlmaLinux)
+
+---
+
+## The Firewall Strategy (UFW/ConfigServer)
+
+### 1. Deny All by Default
+Start by blocking all incoming traffic. Then, only open the ports you *actually* need (e.g., 22 for SSH, 80/443 for Web).
+
+### 2. Port Knocking
+A more advanced technique where you keep your SSH port hidden until a specific sequence of "knocks" is performed on other ports. 
+
+### 3. Intrusion Prevention (Fail2Ban)
+Automatically block IPs that show suspicious activity, like multiple failed login attempts.
+
+---
+
+## 2026 Pro Tip: Zero Trust
+Even internal traffic should be verified. Assume an attacker is already inside your network and segment your services accordingly.
+
+[Get a Secure VPS Managed by AI](/vps-hosting)
+
+---
+
+## FAQ
+**Q: Which Linux Distro is most secure?**  
+A: Security depends more on configuration than the specific distro. However, AlmaLinux and Ubuntu LTS are the industry standards for stability and security patches.
+
+**Q: Does AmanaFlow monitor my server for me?**  
+A: Yes. Our **Imunify360** integration and hardware-level firewalls provide a significant baseline of security out of the box.

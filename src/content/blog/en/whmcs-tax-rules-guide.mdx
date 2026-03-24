@@ -1,0 +1,55 @@
+---
+title: "Setting Up Automatic Tax Rules in WHMCS"
+description: "Take the headache out of accounting. Learn how to configure WHMCS to automatically calculate and apply GST, VAT, or local taxes based on your client's location."
+date: "2026-03-24"
+category: "WHMCS"
+---
+
+<TLDR>
+**Quick Summary:** WHMCS can automate your tax compliance. Go to **Setup > Payments > Tax Rules**, define your home country's tax rate, and enable "Tax Level 1" and "Tax Level 2" for complex multi-regional taxes.
+</TLDR>
+
+## Why Automate Tax?
+Running a global hosting business means dealing with different tax laws (e.g., VAT in Europe, GST in India/Bangladesh). Doing this manually for every invoice is impossible. Automating this ensures you stay legal and your accounting stays clean.
+
+### Understanding Tax Levels in WHMCS
+WHMCS supports two levels of tax:
+- **Tax Level 1**: Primary tax (e.g., General Sales Tax).
+- **Tax Level 2**: Secondary or specific tax that can be added to the total (Compound Tax) or the subtotal.
+
+---
+
+## Step-by-Step Configuration
+
+### 1. Enable Tax Support
+Navigate to **Setup > Payments > Tax Rules**. Check the box "Enable Tax Support."
+
+### 2. Define Your Home Rules
+Add a rule for your primary business location. For example:
+- **Country**: Bangladesh
+- **Tax Name**: VAT
+- **Rate**: 15%
+
+### 3. European VAT (OSS)
+If you have clients in Europe, WHMCS has a built-in **VAT Validation** tool that automatically checks if a client has a valid VAT ID and exempts them if necessary.
+
+---
+
+## Inclusive vs. Exclusive Pricing
+Decide if your website prices *already include* tax (Gross) or if tax is *added at checkout* (Net). Most hosting companies use **Exclusive Pricing** to show a lower "Starting at" price on the homepage.
+
+---
+
+## Pro Tip: Automatic Tax Rule Updates
+Check the **AmanaFlow Knowledgebase** for downloadable tax rule CSV files for different regions. You can import these directly into your WHMCS to save hours of manual entry.
+
+[Learn about Managed WHMCS Hosting](/web-hosting)
+
+---
+
+## FAQ
+**Q: Can I apply different taxes to different products?**  
+A: Yes. In the "Advanced Settings" of each product, you can choose if it is "Taxable" or not.
+
+**Q: Does WHMCS generate tax reports?**  
+A: Yes. Go to **Reports > Billing > Tax Summary** to see a full breakdown of taxes collected for any specific time period.

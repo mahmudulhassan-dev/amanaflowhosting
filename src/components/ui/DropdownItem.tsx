@@ -27,9 +27,11 @@ const DropdownItem = React.forwardRef<HTMLAnchorElement, DropdownItemProps>(
       >
         <div className="flex items-center gap-3">
           {icon && (
-            <span className="flex h-5 w-5 shrink-0 items-center justify-center text-surface-400 group-hover:text-primary-600 dark:text-surface-500 dark:group-hover:text-primary-400">
-              {icon}
-            </span>
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-50 group-hover:bg-primary-50 dark:bg-surface-800 dark:group-hover:bg-primary-900/20">
+              <span className="flex h-5 w-5 shrink-0 items-center justify-center text-surface-400 group-hover:text-primary-600 dark:text-surface-300 dark:group-hover:text-primary-400">
+                {icon}
+              </span>
+            </div>
           )}
           <span>{children}</span>
         </div>
@@ -37,7 +39,7 @@ const DropdownItem = React.forwardRef<HTMLAnchorElement, DropdownItemProps>(
         {showArrow && (
           <ChevronRight 
             size={16} 
-            className="text-surface-300 transition-transform group-hover:translate-x-0.5 group-hover:text-surface-500 dark:text-surface-600 dark:group-hover:text-surface-400" 
+            className="text-surface-300 transition-transform group-hover:translate-x-0.5 group-hover:text-surface-500 dark:text-surface-400 dark:group-hover:text-surface-300" 
           />
         )}
       </Link>

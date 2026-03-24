@@ -1,0 +1,91 @@
+---
+title: "Deploying production-ready Node.js Apps with PM2 and Nginx"
+description: "Don't run 'npm start' and close your terminal. Learn how to keep your Next.js and Express APIs online forever using PM2 process management."
+date: "2026-03-24"
+category: "Developer Tutorials"
+image: "/images/blog/managed_vps_security_featured.png"
+---
+
+<TLDR>
+**Process Management:** You need a process manager like PM2 to restart your app when it crashes and to boot it automatically if the entire VPS physically restarts.
+</TLDR>
+
+## The Problem with `npm start`
+When developers rent their first Ubuntu VPS, they typically clone their GitHub repository, run `npm install`, and then execute `npm start`.
+
+The app works brilliantly—until the developer closes their SSH terminal. Suddenly the process dies, and the website shows a 502 Bad Gateway.
+Even if you use `nohup`, what happens if there's a memory leak and your Node instance crashes? It won't restart on its own.
+
+### Meet PM2 (Process Manager 2)
+PM2 is a production process manager for Node.js applications with a built-in load balancer. It allows you to keep applications alive forever, reload them without downtime, and manage application logging.
+
+### Step 1: Install Node & PM2 Globally
+SSH into your server and install the long-term support version of Node.js:
+```bash
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+sudo apt install -y nodejs
+```
+Now, install PM2 globally:
+```bash
+sudo npm install pm2@latest -g
+```
+
+### Step 2: Start Your Application
+Navigate to your project folder (which you already cloned).
+If you are running an **Express API**:
+```bash
+pm2 start app.js --name "my-backend-api"
+```
+
+If you are running a built **Next.js** application:
+```bash
+pm2 start npm --name "nextjs-frontend" -- start
+```
+
+### Step 3: Configure Startup Scripts
+If AmanaFlow reboots your server for a kernel update, your PM2 instances won't start automatically unless you freeze their state.
+Run this command and follow the instructions output on the terminal:
+```bash
+pm2 startup
+```
+Then, save your current list of running apps:
+```bash
+pm2 save
+```
+
+---
+
+<ProductMarketing 
+  title="Scale Your Node.js Apps"
+  description="Don't be limited by shared hosting constraints. AmanaFlow unmanaged VPS nodes give you root access to install any stack you desire."
+  cta="Deploy Node Infrastructure"
+  link="/vps-hosting"
+  type="vps"
+/>
+
+---
+
+## Step 4: The Reverse Proxy (Nginx)
+Your Node app is now running on a port (e.g., `localhost:3000`). We need to use Nginx to map port 80/443 (the public web) to port 3000.
+
+Create an Nginx configuration file:
+```nginx
+server {
+    listen 80;
+    server_name example.com;
+
+    location / {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+Reload Nginx, configure SSL via Certbot, and your Node environment is completely robust.
+
+## FAQs
+**Q: Does PM2 do load balancing?**  
+A: Yes! You can run `pm2 start app.js -i max` to spawn a separate Node process for every physical CPU core on your AmanaFlow VPS, instantly load-balancing incoming traffic across all cores.

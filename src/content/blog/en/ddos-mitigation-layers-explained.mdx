@@ -1,0 +1,51 @@
+---
+title: "DDoS Mitigation Layers Explained: How AmanaFlow Protects Your Data"
+description: "From UDP floods to Layer 7 HTTP attacks. Learn how our multi-layered global security network keeps your web infrastructure online during massive cyber assaults."
+date: "2026-03-24"
+category: "Web Security"
+image: "/images/blog/managed_vps_security_featured.png"
+---
+
+<TLDR>
+**Defense in Depth:** We route all traffic through edge scrubbing centers capable of absorbing Terabits of malicious traffic before a single bad packet reaches your server.
+</TLDR>
+
+## The Evolution of the DDoS Attack
+A Distributed Denial of Service (DDoS) attack aims to overwhelm your server so legitimate users cannot access it. Ten years ago, these were simplistic volumetric attacks. Today, they are sophisticated, AI-driven, and multi-vector.
+
+To survive, you cannot rely on local server configuration.
+
+### Level 1: Volumetric Attacks (Layer 3 & 4)
+*Examples: UDP Floods, SYN Floods, NTP Amplification.*
+These attacks try to consume all your network bandwidth. If you have a 1 Gbps uplink, attackers send 100 Gbps of junk packets. It doesn't matter how secure your VPS is; the pipe is clogged.
+
+**AmanaFlow's Defense:** Our upstream network layer utilizes Anycast routing to distribute the attack across global scrubbing centers. The junk packets are dumped into a "blackhole" at the network edge, preserving your clean bandwidth.
+
+### Level 2: Application Layer Attacks (Layer 7)
+*Examples: HTTP GET Floods, Slowloris, XML-RPC Brute Force.*
+These attacks are insidious because they don't consume bandwidth. Instead, they mimic real human behavior. Thousands of bots might legitimately ask WordPress for a search result, exhausting the server's CPU and Database RAM.
+
+**AmanaFlow's Defense:** Our Web Application Firewall (WAF) analyzes the *intent* of the traffic. Using real-time ML behavioral analysis and JavaScript challenges, we verify if the visitor is human before the request ever touches PHP.
+
+---
+
+<ProductMarketing 
+  title="DDoS Protection Included"
+  description="Every single AmanaFlow package—from Shared Web Hosting to Dedicated Bare Metal—includes Enterprise-Grade DDoS Mitigation by default."
+  cta="Secure Your Business"
+  link="/web-hosting"
+  type="shared"
+/>
+
+---
+
+## Why You Shouldn't Expose Your Origin IP
+If an attacker discovers your raw VPS IP address, they can bypass Edge CDNs (like Cloudflare) and attack you directly.
+
+**Best Practice:**
+1. Proxy all DNS records through your CDN.
+2. Use AmanaFlow's firewall to block ALL incoming traffic on ports 80/443 EXCEPT from recognized CDN IPs.
+
+## FAQs
+**Q: Do I need an external service if I host with AmanaFlow?**  
+A: AmanaFlow provides excellent baseline protection for up to 500Gbps volumetric attacks. However, highly targeted e-commerce stores should implement strict custom Layer 7 rate-limiting rules at the edge.

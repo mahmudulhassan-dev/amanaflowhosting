@@ -1,0 +1,51 @@
+---
+title: "SSH Key Authentication: Moving Away from Passwords"
+description: "Why passwords aren't safe for server management anymore. A guide to generating, installing, and using SSH keys for ironclad security."
+date: "2026-03-24"
+category: "Security"
+---
+
+<TLDR>
+**Quick Summary:** SSH Keys are much more secure than passwords. A key is a pair of long, complex codes—a "Public" key that lives on your server and a "Private" key that stays safely on your computer.
+</TLDR>
+
+## Why Passwords Suck
+- **Brute Force**: Hackers can try millions of passwords per minute. 
+- **Phishing**: You can be tricked into typing your password on a fake site.
+- **Complexity**: Human-readable passwords are either too simple to guess or too complex to remember.
+
+### How SSH Keys Work
+Think of it as a physical lock and key. The server has the "Lock" (Public Key). Your computer has the "Key" (Private Key). Only your specific computer can open the door.
+
+---
+
+## Generating Your Keys (Step-by-Step)
+
+### 1. Generate the Key Pair
+Open your terminal (on Mac/Linux) or PowerShell (on Windows) and type:
+`ssh-keygen -t ed25519 -C "your_email@example.com"`
+(Ed25519 is the most modern and secure algorithm in 2026).
+
+### 2. Copy to Server
+Use the `ssh-copy-id` command or manually paste your **Public** key into `/home/user/.ssh/authorized_keys` on the server.
+
+### 3. Disable Password Login
+Once you've verified your key works, edit `/etc/ssh/sshd_config` and set:
+`PasswordAuthentication no`
+Now, it’s impossible to log in with a password.
+
+---
+
+## Pro Tip: SSH Key Passphrases
+Even if someone steals your computer, they won't be able to use your SSH keys if you've added a **Passphrase** to the key itself. It’s an extra layer of protection for your digital master keys.
+
+[Get a Secure VPS Managed by AI](/vps-hosting)
+
+---
+
+## FAQ
+**Q: Can I use one key for multiple servers?**  
+A: You *can*, but it's safer to have different keys for different projects to minimize the "blast radius" if one key is compromised.
+
+**Q: What if I lose my private key?**  
+A: You will be locked out of your server. You will need to use the **Web Console** provided in the AmanaFlow dashboard to manually restore access.

@@ -1,0 +1,53 @@
+---
+title: "Step-by-Step: Pointing Your Domain Nameservers to AmanaFlow"
+description: "Bought your domain elsewhere? Learn how to update your DNS and nameservers to connect your domain to your AmanaFlow hosting account."
+date: "2026-03-24"
+category: "Tutorials"
+---
+
+<TLDR>
+**Quick Summary:** To connect your domain, you need to log in to your domain registrar and update the "Nameservers" to AmanaFlow's custom ones (e.g., ns1.amanaflow.cloud). Propagation takes 1-24 hours.
+</TLDR>
+
+## Step 1: Find Your AmanaFlow Nameservers
+When you signed up for hosting, you received a **Welcome Email**. Inside, you will find your assigned nameservers. They usually look like this:
+- **ns1.amanaflow.cloud**
+- **ns2.amanaflow.cloud**
+
+---
+
+## Step 2: Log in to your Domain Registrar
+Whether you use Namecheap, GoDaddy, Google, or any other registrar, the process is similar.
+1. Find your **Domain List**.
+2. Click **Manage** or **Edit** on your chosen domain.
+3. Look for a section labeled **Nameservers** or **DNS Settings**.
+
+---
+
+## Step 3: Update to Custom Nameservers
+1. Select "Custom DNS" or "Edit Nameservers."
+2. Delete any existing nameservers.
+3. Paste the AmanaFlow nameservers you found in Step 1.
+4. **Save Changes**.
+
+---
+
+## Step 4: Wait for Propagation
+This is the hardest part. The global DNS network needs to update.
+- **Local Propagation**: 1-2 hours.
+- **Global Propagation**: Up to 24 hours.
+You can monitor the progress at [DNSChecker.org](https://dnschecker.org).
+
+### Pro Tip: Check your SSL
+Once pointed, our **AutoSSL** system will automatically try to issue an SSL certificate. This usually takes about 30-60 minutes after the domain is correctly pointed.
+
+[Need help? Contact Our Experts](/contact)
+
+---
+
+## FAQ
+**Q: Will my email stop working?**  
+A: If you have existing email settings elsewhere, yes. You will need to recreate your mailboxes in cPanel or update your MX records.
+
+**Q: Can I just use an A Record instead?**  
+A: Yes, but using nameservers is recommended as it allows us to manage all your DNS records in one place centrally.

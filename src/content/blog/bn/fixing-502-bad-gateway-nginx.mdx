@@ -1,0 +1,74 @@
+---
+title: "Nginx ও PHP-FPM এ '502 Bad Gateway' এরর সমাধানের উপায়"
+description: "ইন্টারনেটের সবচেয়ে বিরক্তিকর এরর! কীভাবে সার্ভার লগ চেক করবেন এবং পিএইচপি (PHP) প্রসেসের লিমিট বাড়িয়ে 502 এরর দূর করবেন তা জানুন।"
+date: "2026-03-24"
+category: "Server Administration"
+image: "/images/blog/managed_vps_security_featured.png"
+---
+
+<TLDR>
+**মূল কারণ:** Nginx-এ 502 এরর তখনই আসে যখন Nginx ট্রাফিক রিকোয়েস্টকে PHP-FPM বা Node.js-এর কাছে পাঠায়, কিন্তু অ্যাপ্লিকেশন সার্ভারটি ডাউন বা ওভারলোডেড থাকার কারণে কোনো রেসপন্স দিতে পারে না।
+</TLDR>
+
+## প্রক্সি রিলেশন বোঝা
+Nginx আপনার সার্ভারের মূল ফটক হিসেবে কাজ করে। এটি স্ট্যাটিক ফাইল (ছবি, সিএসএস) দারুণভাবে সার্ভ করতে পারে। কিন্তু যখন কেউ কোনো `.php` ফাইল ভিজিট করে, Nginx তা প্রসেস না করে সরাসরি PHP-FPM এর কাছে পাস করে দেয়।
+
+যখন PHP-FPM নির্দিষ্ট সময়ের মধ্যে উত্তর দিতে ব্যর্থ হয়, তখন Nginx ইউজারকে একটি **502 Bad Gateway** স্ক্রিন দেখিয়ে দেয়।
+
+### ধাপ ১: এরর লগ (Error Logs) চেক করা
+অন্ধের মতো সমাধান না খুঁজে সার্ভারের লগ চেক করুন। SSH দিয়ে সার্ভারে ঢুকে কমান্ড দিন:
+```bash
+sudo tail -f /var/log/nginx/error.log
+```
+
+আপনি সম্ভবত দুটি সমস্যার যেকোনো একটি দেখতে পাবেন:
+১. `connect() to unix:/var/run/php/... failed (Resource temporarily unavailable)`
+২. `Upstream timed out (Connection timed out) while reading response header...`
+
+### ধাপ ২: 'Resource Temporarily Unavailable' সমাধান
+এর মানে হলো আপনার PHP-FPM ওভারলোডেড। অতিরিক্ত ট্রাফিক সামলানোর মতো পর্যাপ্ত প্রোসেসিং থ্রেড বা "চাইল্ড" এর কাছে নেই।
+আপনার পুল কনফিগারেশন ফাইলটি খুলুন (সাধারণত `/etc/php/8.1/fpm/pool.d/www.conf`):
+
+আমানা-ফ্লো এর মানসম্মত ৪ জিবি (4GB) র‍্যামের ভিপিএস হলে ভ্যালুগুলো এভাবে বাড়িয়ে দিন:
+```text
+pm.max_children = 50
+pm.start_servers = 10
+pm.min_spare_servers = 10
+pm.max_spare_servers = 30
+pm.max_requests = 500
+```
+অবশেষে PHP-FPM রিস্টার্ট দিন: `sudo systemctl restart php8.1-fpm`
+
+### ধাপ ৩: 'Upstream Timed Out' সমাধান
+এর মানে আপনার পিএইচপি স্ক্রিপ্ট রান হতে অনেক বেশি সময় নিচ্ছে (সাধারণত ভারী প্লাগইন বা ব্যাকআপ নেওয়ার কারণে হয়)। পিএইচপি কাজ শেষ করার আগেই Nginx লাইন কেটে দিচ্ছে।
+
+এর জন্য Nginx কনফিগারেশন ফাইলে (`/etc/nginx/sites-available/...`) টাইমআউট লিমিট বাড়াতে হবে:
+```nginx
+location ~ \.php$ {
+    fastcgi_read_timeout 300;
+    fastcgi_send_timeout 300;
+    # ... অন্যান্য সেটিংস
+}
+```
+এরপর Nginx রিলোড দিন: `sudo systemctl reload nginx`
+
+---
+
+<ProductMarketing 
+  title="সার্ভার ডিবাগ করতে ক্লান্ত?"
+  description="সাইটটি আমানা-ফ্লো ওয়ার্ডপ্রেস হোস্টিংয়ে নিয়ে আসুন। আমরা আপনার হয়ে PHP-FPM টিউনিং থেকে শুরু করে সব মেইনটেন্যান্স করে দেবো।"
+  cta="ম্যানেজড হোস্টিং দেখুন"
+  link="/wordpress-hosting"
+  type="shared"
+/>
+
+---
+
+## ফাইল (Socket File) খুঁজে না পেলে
+কখনো কখনো লগে `No such file or directory... .sock` দেখতে পারেন। এটি হওয়ার দুটি কারণ থাকতে পারে:
+১. PHP-FPM সার্ভারে আদৌ চলছে না (চেক করুন: `systemctl status php8.1-fpm`)।
+২. আপনি সম্প্রতি সার্ভার `php8.1`-এ আপগ্রেড করেছেন কিন্তু Nginx এখনো `php7.4` এর সকেট খুঁজছে।
+
+## FAQ
+**প্রশ্ন: 502 এরর মানেই কি ডিডিওএস (DDoS) অ্যাটাক?**  
+উত্তর: হতে পারে। কোনো লেয়ার-৭ অ্যাটাক একসঙ্গে হাজার হাজার ফেক রিকোয়েস্ট পাঠালে PHP-FPM এর `max_children` লিমিট সেকেন্ডেই শেষ হয়ে যায়। ফলে আসল ভিজিটররাও 502 এরর দেখেন।

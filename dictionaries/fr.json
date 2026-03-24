@@ -1,0 +1,10 @@
+{
+  "Hero": {
+    "title": "Hébergement Web Premium,<br/>Conçu pour la <span>Performance</span>.",
+    "subtitle": "Déployez des serveurs NVMe ultra-rapides en quelques secondes. Profitez d'une disponibilité de 99,9 %, d'une protection DDoS et d'un support expert L3."
+  },
+  "Blog": {
+    "title": "Blog d'Ingénierie",
+    "subtitle": "Guides techniques et actualités de l'industrie."
+  }
+}

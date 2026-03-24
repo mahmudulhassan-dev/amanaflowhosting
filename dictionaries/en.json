@@ -1,6 +1,82 @@
 {
+  "Index": {
+    "Hero": {
+      "badge": "New: Enterprise Cloud VPS Available Now in Dhaka, BD",
+      "title": "Premium Web Hosting,<br/>Engineered for <span>Performance</span>.",
+      "description": "AmanaFlow delivers enterprise-grade infrastructure, unmetered NVMe storage, and 99.9% guaranteed uptime for businesses that refuse to compromise.",
+      "searchPlaceholder": "Find your perfect domain name (e.g., yourcompany.com)",
+      "searchButton": "Search Domain"
+    },
+    "Sections": {
+      "hosting": {
+        "badge": "Hosting Solutions",
+        "title": "Choose the Perfect Solution for Your Business",
+        "description": "From shared hosting to high-performance dedicated servers, we have you covered."
+      },
+      "infrastructure": {
+        "badge": "Infrastructure",
+        "title": "Next-Generation Cloud Technology",
+        "description": "We utilize the latest hardware and custom-built networks to deliver unmatched performance."
+      },
+      "trust": {
+        "title": "Trusted by World-Class Infrastructure Partners"
+      },
+      "comparison": {
+        "badge": "Why Us",
+        "title": "Engineered for Reliability",
+        "description": "Compare our core advantages and see why serious businesses choose AmanaFlow.",
+        "features": "Features",
+        "amanaflow": "AmanaFlow Cloud",
+        "standard": "Standard Hosts",
+        "rows": {
+          "storage": {
+            "label": "Storage Technology",
+            "amanaflow": "Enterprise NVMe RAID-10",
+            "standard": "Standard SSD / HDD"
+          },
+          "uptime": {
+            "label": "Uptime Guarantee",
+            "amanaflow": "99.9% (SLA Backed)",
+            "standard": "99% or Not Guaranteed"
+          },
+          "backup": {
+            "label": "Backup Frequency",
+            "amanaflow": "Daily / Real-time",
+            "standard": "Weekly or Manual"
+          },
+          "scalability": {
+            "label": "Scalability",
+            "amanaflow": "Instant (1-Click)",
+            "standard": "Requires Migration"
+          },
+          "acceleration": {
+            "label": "Site Acceleration",
+            "amanaflow": "LiteSpeed + LSCache",
+            "standard": "Apache or Nginx"
+          },
+          "security": {
+            "label": "Security Grade",
+            "amanaflow": "Imunify360 and 1Tbps DDoS",
+            "standard": "Basic Firewall"
+          },
+          "support": {
+            "label": "Support Grade",
+            "amanaflow": "L3 Expert Support (24/7)",
+            "standard": "L1 Outsourced Support"
+          }
+        }
+      }
+    }
+  },
   "Topbar": {
     "support": "24/7 Premium Support:",
-    "status": "System Status: 100% Operational"
+    "login": "Client Login",
+    "register": "Register"
+  },
+  "Navbar": {
+    "services": "Services",
+    "company": "Company",
+    "pricing": "Pricing",
+    "login": "Login"
   }
 }

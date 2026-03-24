@@ -1,0 +1,59 @@
+---
+title: "Installing WHMCS: The Complete Setup Guide for Resellers"
+description: "Starting your own hosting company? Follow our step-by-step technical guide to installing and configuring WHMCS for maximum automation."
+date: "2026-03-24"
+category: "WHMCS"
+---
+
+<TLDR>
+**Quick Summary:** Installing WHMCS requires a hosting account, a license, and 5 minutes of your time. Use the cPanel File Manager and MySQL Database Wizard to get started, or use one-click installers like Softaculous.
+</TLDR>
+
+## Prerequisites
+Before you start, ensure you have:
+1. A **WHMCS License Key**.
+2. A server or hosting account that meets the [WHMCS system requirements](https://docs.whmcs.com/System_Requirements).
+3. **PHP 8.2+** with IonCube Loader enabled.
+
+---
+
+## Step 1: Upload the Files
+Download the latest version of WHMCS from the members area. Upload the `.zip` file to your server’s `public_html` (or a subdirectory like `/billing`) and extract it.
+
+## Step 2: Create a Database
+1. Go to **MySQL Database Wizard** in cPanel.
+2. Create a database (e.g., `whmcs_db`).
+3. Create a user (e.g., `whmcs_user`) and generate a strong password.
+4. Grant **All Privileges** to the user.
+
+---
+
+## Step 3: Run the Installer
+Visit `yourdomain.com/install/install.php` in your browser.
+1. **License Agreement**: Read and accept.
+2. **System Requirements**: Ensure everything is green.
+3. **License Key**: Enter your key.
+4. **Database Details**: Enter the DB name, user, and password you created in Step 2.
+
+## Step 4: Admin Account Setup
+Create your administrator account. **Pro Tip**: Use a unique username and a extremely secure password.
+
+---
+
+## Step 5: Post-Installation (Critical Security)
+Once the installation is complete, you MUST:
+1. Delete the `/install` directory from your server.
+2. Move the `configuration.php` file permissions to **400** or **444**.
+3. Set up your **Cron Job**. WHMCS needs this to automate all tasks.
+   `php -q /home/username/public_html/whmcs/crons/cron.php`
+
+[Get a VPS for your WHMCS](/vps-hosting)
+
+---
+
+## FAQ
+**Q: Can I install WHMCS on shared hosting?**  
+A: Yes, but for better security and reliability, we recommend a [Managed VPS](/vps-hosting).
+
+**Q: What is the Cron Job?**  
+A: It’s a scheduled task that tells WHMCS to check for overdue invoices, renew domains, and suspend overdue accounts every hour.

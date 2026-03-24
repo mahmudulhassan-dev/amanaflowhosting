@@ -1,0 +1,47 @@
+---
+title: "Increasing the PHP Memory Limit in WordPress (3 Methods)"
+description: "Getting 'Allowed memory size exhausted' errors? Learn how to increase your PHP memory limit to handle heavy plugins and themes."
+date: "2026-03-24"
+category: "WordPress"
+---
+
+<TLDR>
+**Quick Summary:** WordPress needs memory to process scripts. If a plugin is too heavy, it crashes. You can increase the limit via **wp-config.php**, **.htaccess**, or the **PHP Selector** in cPanel.
+</TLDR>
+
+## Why Does Memory Matter?
+Every time you load a page, PHP scripts run in the background. If you have many plugins (Elementor, WooCommerce, Yoast), they all demand a slice of the "Memory Pie." If the pie is too small, your server will stop and throw an error.
+
+### Method 1: The wp-config.php File
+This is the most common method. Add this line near the top of the file:
+`define('WP_MEMORY_LIMIT', '256M');`
+For very heavy sites, you can even go up to `512M`.
+
+---
+
+### Method 2: The .htaccess File
+If the first method doesn't work, your server might be looking for instructions here. Add this line:
+`php_value memory_limit 256M`
+
+### Method 3: cPanel PHP Selector (Recommended)
+This is the safest and easiest way on AmanaFlow hosting:
+1. Log in to cPanel.
+2. Find **Select PHP Version**.
+3. Click the **Options** tab.
+4. Find `memory_limit` and change it to `256M` or higher from the dropdown.
+
+---
+
+## The "False Fix" Warning
+Increasing the memory limit hides the symptom, but it doesn't always fix the cause. If a simple blog is hitting a 512MB limit, you likely have a "Memory Leak" in a poorly coded plugin. Check your server logs to identify which plugin is eating your resources.
+
+[Get High-Performance Hosting with High Limits](/web-hosting)
+
+---
+
+## FAQ
+**Q: What is a safe memory limit?**  
+A: 128MB is the standard for basic sites. 256MB is recommended for E-commerce. 512MB is for high-traffic or complex membership sites.
+
+**Q: Will increasing the limit make my site faster?**  
+A: Not necessarily. It prevents crashes, but it doesnt speed up execution. To increase speed, focus on **Caching** and **NVMe storage**.

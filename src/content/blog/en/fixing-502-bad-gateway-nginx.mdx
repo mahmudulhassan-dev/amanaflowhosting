@@ -1,0 +1,75 @@
+---
+title: "How to Fix '502 Bad Gateway' Errors in Nginx & PHP-FPM"
+description: "The most dreaded error on the internet. Learn how to debug socket connections, read Nginx error logs, and increase PHP execution limits."
+date: "2026-03-24"
+category: "Server Administration"
+image: "/images/blog/managed_vps_security_featured.png"
+---
+
+<TLDR>
+**The Root Cause:** A 502 error in Nginx almost always means that Nginx (the proxy) tried to forward a request to PHP-FPM or Node.js, but the application server was dead, overloaded, or misconfigured.
+</TLDR>
+
+## Understanding the Proxy Relationship
+Nginx acts as the front door to your server. It serves static files (like images and CSS) incredibly fast. But when a visitor requests a `.php` file, Nginx cannot process it. It passes the file to PHP-FPM through a UNIX socket or TCP port.
+
+If PHP-FPM fails to respond within a specific timeout window, Nginx throws his hands up and serves a **502 Bad Gateway** screen.
+
+### Step 1: Check the Error Logs
+Never guess. The server will tell you exactly what went wrong.
+Access your server via SSH and tail the Nginx error log:
+```bash
+sudo tail -f /var/log/nginx/error.log
+```
+
+You will likely see one of two things:
+1. `connect() to unix:/var/run/php/php8.1-fpm.sock failed (11: Resource temporarily unavailable)`
+2. `Upstream timed out (110: Connection timed out) while reading response header from upstream`
+
+### Step 2: Fixing 'Resource Temporarily Unavailable'
+This means PHP-FPM is overloaded and doesn't have enough "children" (processing threads) to handle the incoming traffic.
+Open your PHP-FPM pool configuration (usually `/etc/php/8.1/fpm/pool.d/www.conf`):
+
+Find these values and increase them based on your AmanaFlow VPS RAM (assume 4GB RAM):
+```text
+pm.max_children = 50
+pm.start_servers = 10
+pm.min_spare_servers = 10
+pm.max_spare_servers = 30
+pm.max_requests = 500
+```
+Restart PHP-FPM: `sudo systemctl restart php8.1-fpm`
+
+### Step 3: Fixing 'Upstream Timed Out'
+This means your PHP script is taking too long to execute (usually a slow WordPress plugin or a massive database backup query). Nginx drops the connection before PHP finishes.
+
+You must increase the timeout limits in your Nginx Server Block (`/etc/nginx/sites-available/yourdomain.com`):
+```nginx
+location ~ \.php$ {
+    fastcgi_read_timeout 300;
+    fastcgi_send_timeout 300;
+    # ... other settings
+}
+```
+Reload Nginx: `sudo systemctl reload nginx`
+
+---
+
+<ProductMarketing 
+  title="Tired of Debugging Servers?"
+  description="Migrate your website to an AmanaFlow WordPress plan. We handle all PHP-FPM tuning, Nginx proxying, and server management."
+  cta="View Managed Hosting"
+  link="/wordpress-hosting"
+  type="shared"
+/>
+
+---
+
+## When the Socket Doesn't Exist
+Sometimes you will see `No such file or directory` regarding the `.sock` file. This happens when:
+1. PHP-FPM isn't running at all check with `systemctl status php8.1-fpm`.
+2. Nginx is looking for `php7.4-fpm.sock` but you recently upgraded your server to `php8.1`. Update your Nginx config to match the installed version.
+
+## FAQs
+**Q: Is a 502 error a DDoS attack?**  
+A: It can be. If a Layer 7 DDoS attack floods your server with thousands of requests, PHP-FPM will instantly exhaust its `max_children` limit, causing legitimate users to see a 502 error.

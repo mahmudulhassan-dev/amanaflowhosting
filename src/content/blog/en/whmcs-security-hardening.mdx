@@ -1,0 +1,44 @@
+---
+title: "WHMCS Security: Hardening Your Billing System (2026 Guidelines)"
+description: "Your WHMCS holds your customer's data and your revenue. Don't leave it vulnerable. Follow these 7 critical steps to secure your WHMCS installation."
+date: "2026-03-24"
+category: "WHMCS"
+---
+
+<TLDR>
+**Quick Summary:** Security in WHMCS is about layers. Move sensitive directories above the web root, rename your admin folder, use 2FA, and always keep your PHP version updated.
+</TLDR>
+
+## Why WHMCS is a Target
+Because WHMCS manages servers and billing, a breach could be catastrophic. Hackers are constantly looking for unpatched versions or weak passwords. At AmanaFlow, we consider security the #1 priority for our resellers.
+
+### 7 Critical Hardening Steps
+
+1. **Move Sensitive Folders**: Move the `attachments`, `downloads`, and `templates_c` folders to a location *outside* your public_html folder. Update your `configuration.php` to reflect the new paths.
+2. **Rename the Admin Directory**: Never use `/admin`. Change it to something unique like `/portal-management-xyz`.
+3. **Enable Two-Factor Authentication (2FA)**: Mandatory for all admin accounts. No exceptions.
+4. **IP Access Restrict the Admin**: If you have a static IP, tell WHMCS to only allow admin logins from your specific IP address.
+5. **Move the Crons Folder**: Just like sensitive data, keep your cron folder outside the web root.
+6. **Limit Login Attempts**: Use the built-in WHMCS settings to ban IPs after 3-5 failed login attempts.
+7. **Disable Database Errors**: In `configuration.php`, set `$display_errors = false;` to prevent database structure info from leaking during errors.
+
+---
+
+## Proactive Monitoring
+Check your **Activity Log** daily. If you see failed logins or strange account creations, investigate immediately. Always keep WHMCS updated to the latest stable release (Current LTS recommended for mission-critical setups).
+
+---
+
+## The Host's Responsibility
+Securing WHMCS also depends on the server it sits on. By hosting your billing system on **AmanaFlow VPS**, you get the benefit of our hardware-level DDoS protection and AI-monitored firewalls.
+
+[Secure your WHMCS with a Managed VPS](/vps-hosting)
+
+---
+
+## FAQ
+**Q: Is WHMCS safe for storing credit cards?**  
+A: Yes, if you use a merchant gateway (like Stripe or PayPal) where the data never touches your server. We recommend NOT storing raw card numbers locally.
+
+**Q: What happens if I get hacked?**  
+A: Restore from a backup immediately. This is why daily automated backups are included in all [AmanaFlow plans](/web-hosting).

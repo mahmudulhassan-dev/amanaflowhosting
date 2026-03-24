@@ -21,7 +21,7 @@ export function ThemeToggle() {
     <div className="relative">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center w-9 h-9 rounded-lg border border-surface-200 bg-white text-surface-600 transition-colors hover:bg-surface-100 dark:border-surface-800 dark:bg-surface-950 dark:text-surface-400 dark:hover:bg-surface-900 focus:outline-none focus:ring-2 focus:ring-primary-500/20"
+        className="flex items-center justify-center w-9 h-9 rounded-full bg-transparent text-surface-600 transition-colors hover:bg-surface-100 hover:text-surface-900 dark:text-surface-400 dark:hover:bg-surface-800 dark:hover:text-white focus:outline-none"
         aria-label="Toggle theme"
       >
         {theme === "light" && <Sun size={18} />}
@@ -30,34 +30,37 @@ export function ThemeToggle() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-12 z-50 w-36 overflow-hidden rounded-xl border border-surface-200 bg-white p-1 shadow-premium dark:border-surface-800 dark:bg-surface-950 animate-in fade-in zoom-in-95 duration-200">
+        <div className="absolute right-0 top-12 z-50 w-40 overflow-hidden rounded-xl border border-surface-200 bg-white/95 backdrop-blur-xl p-1 shadow-premium dark:border-surface-800 dark:bg-surface-950/95 animate-in fade-in zoom-in-95 duration-200">
           <button
             onClick={() => { setTheme("light"); setIsOpen(false); }}
             className={cn(
-              "flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-surface-100 dark:hover:bg-surface-900",
-              theme === "light" ? "text-primary-600 dark:text-primary-400" : "text-surface-600 dark:text-surface-400"
+              "flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-surface-100 dark:hover:bg-surface-900",
+              theme === "light" ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20" : "text-surface-600 dark:text-surface-400"
             )}
           >
-            <Sun size={16} /> Light
+            <div className="flex items-center gap-2"><Sun size={16} /> Light</div>
+            {theme === "light" && <span>✓</span>}
           </button>
           <button
             onClick={() => { setTheme("dark"); setIsOpen(false); }}
             className={cn(
-              "flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-surface-100 dark:hover:bg-surface-900",
-              theme === "dark" ? "text-primary-600 dark:text-primary-400" : "text-surface-600 dark:text-surface-400"
+              "flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-surface-100 dark:hover:bg-surface-900",
+              theme === "dark" ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20" : "text-surface-600 dark:text-surface-400"
             )}
           >
-            <Moon size={16} /> Dark
+            <div className="flex items-center gap-2"><Moon size={16} /> Dark</div>
+            {theme === "dark" && <span>✓</span>}
           </button>
           <div className="my-1 border-t border-surface-100 dark:border-surface-800" />
           <button
             onClick={() => { setTheme("system"); setIsOpen(false); }}
             className={cn(
-              "flex w-full items-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-surface-100 dark:hover:bg-surface-900",
-              theme === "system" ? "text-primary-600 dark:text-primary-400" : "text-surface-600 dark:text-surface-400"
+              "flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium transition-colors hover:bg-surface-100 dark:hover:bg-surface-900",
+              theme === "system" ? "text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20" : "text-surface-600 dark:text-surface-400"
             )}
           >
-            <Monitor size={16} /> System
+            <div className="flex items-center gap-2"><Monitor size={16} /> System</div>
+            {theme === "system" && <span>✓</span>}
           </button>
         </div>
       )}

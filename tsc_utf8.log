@@ -1,0 +1,6 @@
+﻿src/app/[locale]/blog/page.tsx(78,28): error TS18047: 'post' is possibly 'null'.
+src/app/[locale]/blog/page.tsx(78,54): error TS18047: 'post' is possibly 'null'.
+src/app/[locale]/blog/page.tsx(81,85): error TS18047: 'post' is possibly 'null'.
+src/app/[locale]/blog/page.tsx(83,26): error TS18047: 'post' is possibly 'null'.
+src/app/[locale]/blog/page.tsx(86,26): error TS18047: 'post' is possibly 'null'.
+src/app/[locale]/blog/page.tsx(89,107): error TS18047: 'post' is possibly 'null'.

@@ -1,0 +1,43 @@
+---
+title: "How to Protect your Site from Brute Force Attacks"
+description: "Hackers use robots to guess your password thousands of times. Stop them in their tracks with these 5 battle-tested security measures."
+date: "2026-03-24"
+category: "Security"
+---
+
+<TLDR>
+**Quick Summary:** Brute force is a "numbers game" attack. Counter it by changing your default login URLs, limiting login attempts, and using **Two-Factor Authentication (2FA)**.
+</TLDR>
+
+## The Anatomy of an Attack
+A botnet identifies your login page (e.g., `/wp-admin` or `/login`). It then cycles through millions of combinations of "admin" + "password123". In 2026, AI-enhanced bots can even guess variations of your company name or social media data.
+
+### 1. Change the Default URL
+If the bot can't find your login door, it can't kick it down. Use a plugin or server rule to change `/wp-admin` to something unique like `/portal-xyz`.
+
+### 2. Implement "Limit Login Attempts"
+Set a rule: If someone fails to log in 3 times, their IP address is banned for 24 hours. At AmanaFlow, our **Imunify360** handles this automatically for all customers.
+
+---
+
+## The Ultimate Shield: 2FA
+Even if an attacker *successfully* guesses your password, they are blocked if they don't have your physical phone. Using **Google Authenticator** or **Authy** for your cPanel and WHMCS logins is the single most effective security step you can take.
+
+### 3. Protect via Cloudflare
+Using Cloudflare as a proxy allows you to enable "Under Attack Mode." It challenges visitors with a JS challenge before they even reach your server, filtering out 99.9% of bot traffic.
+
+---
+
+## 2026 Strategy: Bot Management
+High-level bots can mimic human mouse movements. Advanced security systems like our **Amana-Shield** analyze behavior patterns (like how fast someone types) to distinguish between a real human and a high-level bot.
+
+[Secure Your Digital Assets](/web-hosting)
+
+---
+
+## FAQ
+**Q: Does a strong password help?**  
+A: Yes, but only to a point. A 20-character random string is better than "Winter2026", but it’s still vulnerable to keyloggers or phishing without 2FA.
+
+**Q: Will security plugins slow down my site?**  
+A: Some heavy plugins might. We recommend server-level security (like our built-in tools) which has zero impact on your front-end loading speed.

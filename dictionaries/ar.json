@@ -1,0 +1,10 @@
+{
+  "Hero": {
+    "title": "Premium Web Hosting,<br/>Engineered for <span>Performance</span>.",
+    "subtitle": "Deploy blazing-fast NVMe servers in seconds. Enjoy 99.9% uptime, DDoS protection, and expert L3 support."
+  },
+  "Blog": {
+    "title": "Engineering Blog",
+    "subtitle": "Technical guides and industry news."
+  }
+}

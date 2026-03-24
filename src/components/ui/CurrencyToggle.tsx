@@ -5,7 +5,11 @@ import { useCurrency } from "@/context/CurrencyContext";
 import { DollarSign } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export function CurrencyToggle() {
+interface CurrencyToggleProps {
+  direction?: "up" | "down";
+}
+
+export function CurrencyToggle({ direction = "down" }: CurrencyToggleProps) {
   const { currency, setCurrency } = useCurrency();
   const [isOpen, setIsOpen] = React.useState(false);
   const dropdownRef = React.useRef<HTMLDivElement>(null);
@@ -24,14 +28,19 @@ export function CurrencyToggle() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-1.5 text-xs font-medium text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-white transition-colors"
+        className="flex items-center gap-1.5 px-2.5 h-7 rounded-full bg-transparent text-[11px] font-bold text-surface-400 transition-colors hover:bg-surface-800 hover:text-white focus:outline-none"
       >
-        <DollarSign size={14} />
+        <DollarSign size={12} />
         <span className="uppercase">{currency}</span>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-6 z-50 w-32 overflow-hidden rounded-lg border border-surface-200 bg-white p-1 shadow-premium dark:border-surface-800 dark:bg-surface-950 animate-in fade-in zoom-in-95 duration-200">
+        <div 
+          className={cn(
+            "absolute right-0 z-[70] w-32 overflow-hidden rounded-xl border border-surface-200 bg-white/95 backdrop-blur-xl p-1 shadow-premium dark:border-surface-800 dark:bg-surface-950/95 animate-in fade-in zoom-in-95 duration-200",
+            direction === "up" ? "bottom-full mb-2 origin-bottom" : "top-8 origin-top"
+          )}
+        >
           <button
             onClick={() => { setCurrency("USD"); setIsOpen(false); }}
             className={cn(

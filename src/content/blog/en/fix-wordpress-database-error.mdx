@@ -1,0 +1,49 @@
+---
+title: "Fixing 'Error Establishing a Database Connection' in WordPress"
+description: "The most dreaded WordPress error, explained. Learn the 4 common causes and how to fix them in under 5 minutes."
+date: "2026-03-24"
+category: "Tutorials"
+---
+
+<TLDR>
+**Quick Summary:** This error means WordPress can't talk to your MySQL database. Most often, it's due to incorrect credentials in `wp-config.php`, a corrupted database, or an unresponsive database server.
+</TLDR>
+
+## Don't Panic: Your Data is Safe
+Seeing a blank screen with this error is scary, but it rarely means your data is lost. It just means the "bridge" between your code and your data is broken.
+
+### Step 1: Check your wp-config.php Credentials
+90% of the time, this is the culprit. Open your File Manager and check these four lines:
+- `DB_NAME`: The database name.
+- `DB_USER`: The database user.
+- `DB_PASSWORD`: The user's password.
+- `DB_HOST`: Usually `localhost`.
+
+**Hint**: Ensure there are no extra spaces or typos.
+
+---
+
+### Step 2: Repair the Database
+If your credentials are correct, your database might be corrupted. Add this line to your `wp-config.php`:
+`define('WP_ALLOW_REPAIR', true);`
+
+Then visit: `yourdomain.com/wp-admin/maint/repair.php`. Click "Repair and Optimize." Once done, **remove the line from your config file immediately.**
+
+### Step 3: Check if the Database Server is Down
+If you are on a "budget" host, their database server might be overloaded. At AmanaFlow, we use isolated database instances to prevent this. You can check your **cPanel Statistics** to see if your MySQL usage is hitting its limit.
+
+---
+
+## 2026 Pro Tip: Auto-Healing with Kodee
+If you are an AmanaFlow Business or VPS user, our AI agent **Kodee** can diagnose this error for you. Simply ask: *"Kodee, why is my site showing a database connection error?"* and it will check your config files and server status for you.
+
+[Upgrade to Managed WordPress](/wordpress-hosting)
+
+---
+
+## FAQ
+**Q: I didn't change anything, why did it break?**  
+A: A plugin update or a server-side software change can sometimes trigger this. If it happens frequently, it's a sign of a deeper configuration issue.
+
+**Q: Can I restore a backup to fix this?**  
+A: Yes. If a repair doesn't work, restoring your database to a health snapshot from yesterday is a surefire fix.

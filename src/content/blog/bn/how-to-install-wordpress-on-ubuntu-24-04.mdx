@@ -1,0 +1,99 @@
+---
+title: "উবুন্টু (Ubuntu) ২৪.০৪-এ Nginx দিয়ে কীভাবে ওয়ার্ডপ্রেস ইনস্টল করবেন?"
+description: "একটি আনম্যানেজড উবুন্টু ভিপিএস-এ সম্পূর্ণ হাই-পারফরম্যান্স লেম্প (LEMP) স্ট্যাক এবং ওয়ার্ডপ্রেস সেটআপ করার সহজ গাইড।"
+date: "2026-03-24"
+category: "Developer Tutorials"
+image: "/images/blog/wordpress_excellence_featured.png"
+---
+
+<TLDR>
+**এটি কাদের জন্য?** ওইসব ডেভেলপারদের জন্য যারা সি-প্যানেল (cPanel) বা কোনো প্যানেল ছাড়াই র-সার্ভারে (Raw Server) ওয়ার্ডপ্রেস চালিয়ে সর্বোচ্চ স্পিড পেতে চান।
+</TLDR>
+
+## ল্যাম্প (LAMP) এর বদলে কেন লেম্প (LEMP) স্ট্যাক?
+সাধারণ LAMP স্ট্যাকে 'Apache' ব্যবহার করা হয় যা প্রতিটি ইউজারের জন্য একটি করে প্রসেস তৈরি করে। অন্যদিকে LEMP স্ট্যাকে **Nginx (ইঞ্জিনএক্স)** ব্যবহার করা হয়। এটি অ্যাসিনক্রোনাস (Asynchronous) হওয়ার কারণে হাজার হাজার ভিজিটর আসলেও সার্ভার ডাউন হয় না।
+
+### যা যা লাগবে
+- আমানা-ফ্লো এর একটি ফ্রেশ আনম্যানেজড লিনেক্স ভিপিএস (**Ubuntu 24.04**)।
+- SSH এর মাধ্যমে রুট (Root) অ্যাক্সেস।
+- একটি ডোমেইন।
+
+---
+
+### ধাপ ১: Nginx ইনস্টল করা
+সার্ভারে লগইন করে প্যাকেজ আপডেট করুন:
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install nginx -y
+```
+Nginx চালু করুন:
+```bash
+sudo systemctl enable nginx
+sudo systemctl start nginx
+```
+
+### ধাপ ২: MariaDB ডাটাবেস সেটআপ
+MySQL এর চেয়ে MariaDB বেশি ফাস্ট এবং ওপেন-সোর্স। 
+```bash
+sudo apt install mariadb-server mariadb-client -y
+sudo mysql_secure_installation
+```
+*(সবগুলো অপশনে Y চাপুন এবং একটি শক্ত রুট পাসওয়ার্ড দিন)।*
+
+### ধাপ ৩: PHP 8.3 ইনস্টল করা
+Nginx নিজে থেকে পিএইচপি প্রসেস করতে পারে না, তাই আমাদের `php-fpm` লাগবে।
+```bash
+sudo apt install php8.3-fpm php8.3-mysql php8.3-curl php8.3-gd php8.3-mbstring php8.3-xml php8.3-xmlrpc -y
+```
+
+### ধাপ ৪: ওয়ার্ডপ্রেসের জন্য Nginx কনফিগারেশন
+আপনার ডোমেইনের জন্য একটি কনফিগার ফাইল বানান (`/etc/nginx/sites-available/yourdomain.com`):
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;
+    root /var/www/yourdomain.com;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+    }
+}
+```
+সাইটটি এনাবল করুন:
+```bash
+sudo ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+---
+
+<ProductMarketing 
+  title="সুপার ফাস্ট ভিপিএস খুঁজছেন?"
+  description="আমানা-ফ্লো এর এনভিয়ামি জেন-৫ (NVMe Gen 5) সার্ভারে এই স্ট্যাক রান করে আপনার সাইটের স্পিড ১০ গুন বাড়ান।"
+  cta="উবুন্টু ভিপিএস দেখুন"
+  link="/vps-hosting"
+  type="vps"
+/>
+
+---
+
+### ধাপ ৫: ওয়ার্ডপ্রেস ডাউনলোড করা
+```bash
+cd /tmp
+wget https://wordpress.org/latest.tar.gz
+tar -xvzf latest.tar.gz
+sudo mv wordpress/* /var/www/yourdomain.com/
+sudo chown -R www-data:www-data /var/www/yourdomain.com/
+```
+এখন ব্রাউজারে আপনার ডোমেইন ভিজিট করে ওয়ার্ডপ্রেসের ডিফল্ট ইনস্টলেশন শেষ করুন।
+	    
+## FAQ
+**প্রশ্ন: আমার কি কোনো ফায়ারওয়াল লাগবে?**  
+উত্তর: অবশ্যই। UFW চালু করার আগে `sudo ufw allow 'Nginx Full'` এবং `sudo ufw allow OpenSSH` রান করতে ভুলবেন না।

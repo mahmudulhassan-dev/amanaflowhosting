@@ -1,0 +1,100 @@
+---
+title: "How to Install WordPress with LEMP Stack on Ubuntu 24.04"
+description: "A complete step-by-step guide to installing the high-performance LEMP stack (Linux, Nginx, MariaDB, PHP) and WordPress on an unmanaged Ubuntu VPS."
+date: "2026-03-24"
+category: "Developer Tutorials"
+image: "/images/blog/wordpress_excellence_featured.png"
+---
+
+<TLDR>
+**Who is this for?** Developers who want maximum control over their WordPress environment. Bypassing cPanel saves overhead and maximizes raw computational power.
+</TLDR>
+
+## Why LEMP over LAMP?
+The traditional LAMP stack uses Apache as the web server. While stable, Apache creates a new process for every connection. LEMP uses **Nginx** (pronounced Engine-X), which uses an asynchronous, event-driven architecture, making it significantly faster at handling thousands of concurrent connections.
+
+### Prerequisites
+- A fresh AmanaFlow Unmanaged Linux VPS running **Ubuntu 24.04**.
+- Root access via SSH.
+- A registered domain name pointing to your VPS IP address.
+
+---
+
+### Step 1: Install Nginx
+Log into your server and update your package lists:
+```bash
+sudo apt update && sudo apt upgrade -y
+sudo apt install nginx -y
+```
+Enable Nginx to start on boot:
+```bash
+sudo systemctl enable nginx
+sudo systemctl start nginx
+```
+
+### Step 2: Install MariaDB
+MariaDB is a community-developed, drop-in replacement for MySQL that offers better performance.
+```bash
+sudo apt install mariadb-server mariadb-client -y
+sudo mysql_secure_installation
+```
+*(Press Y to all security prompts and set a strong root password).*
+
+### Step 3: Install PHP 8.3
+WordPress requires PHP. We will install `php-fpm` (FastCGI Process Manager) because Nginx doesn't process PHP natively.
+```bash
+sudo apt install php8.3-fpm php8.3-mysql php8.3-curl php8.3-gd php8.3-mbstring php8.3-xml php8.3-xmlrpc -y
+```
+
+### Step 4: Configure Nginx for WordPress
+Create a new configuration file for your domain (`/etc/nginx/sites-available/yourdomain.com`):
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;
+    root /var/www/yourdomain.com;
+    index index.php index.html index.htm;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+    }
+}
+```
+Enable the site block:
+```bash
+sudo ln -s /etc/nginx/sites-available/yourdomain.com /etc/nginx/sites-enabled/
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+---
+
+<ProductMarketing 
+  title="Need a Faster VPS?"
+  description="Run this exact stack on AmanaFlow's Gen 5 NVMe infrastructure."
+  cta="Deploy Ubuntu VPS"
+  link="/vps-hosting"
+  type="vps"
+/>
+
+---
+
+### Step 5: Download WordPress
+```bash
+cd /tmp
+wget https://wordpress.org/latest.tar.gz
+tar -xvzf latest.tar.gz
+sudo mv wordpress/* /var/www/yourdomain.com/
+sudo chown -R www-data:www-data /var/www/yourdomain.com/
+```
+
+Now, navigate to your domain in the browser to complete the famous 5-minute WordPress installation.
+
+## FAQs
+**Q: Do I need a firewall?**  
+A: Yes, absolutely. Run `sudo ufw allow 'Nginx Full'` and `sudo ufw allow OpenSSH` before enabling UFW.

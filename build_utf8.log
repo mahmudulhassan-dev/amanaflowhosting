@@ -1,0 +1,49 @@
+﻿
+> amanaflowhosting@0.1.0 build
+> next build
+
+Γû▓ Next.js 16.2.0 (Turbopack)
+
+node.exe : ΓÜá The "middleware" file convention is 
+deprecated. Please use "proxy" instead. Learn 
+more: https://nextjs.org/docs/messages/middleware-t
+o-proxy
+At line:1 char:1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program 
+Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ΓÜá T 
+   he "middle...leware-to-proxy:String) [], Remot  
+  eException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  Creating an optimized production build ...
+Γ£ô Compiled successfully in 2.3s
+  Running TypeScript ...
+Failed to type check.
+
+./src/app/[locale]/blog/[slug]/page.tsx:33:25
+Type error: Property 'url' does not exist on type 
+'{ name: string; description: string; whmcsUrl: 
+string; links: { twitter: string; facebook: 
+string; github: string; linkedin: string; }; }'.
+
+  [90m31 |[0m   [90m// Build hreflangs 
+mapping[0m
+  [90m32 |[0m   [36mconst[0m languages: 
+[33mRecord[0m<string, string> = {
+[31m[1m>[0m [90m33 |[0m     [32m'en'[0m: [3
+2m`[0m${siteConfig.url[32m}/blog/[0m${post.slug
+[32m}`[0m,
+  [90m   |[0m                         
+[31m[1m^[0m
+  [90m34 |[0m     [32m'bn'[0m: [32m`[0m${site
+Config.url[32m}/bn/blog/[0m${post.slug[32m}`[0m
+,
+  [90m35 |[0m     [32m'x-default'[0m: [32m`[0
+m${siteConfig.url[32m}/blog/[0m${post.slug[32m}`
+[0m
+  [90m36 |[0m   };
+Next.js build worker exited with code: 1 and 
+signal: null

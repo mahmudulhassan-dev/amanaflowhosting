@@ -1,0 +1,47 @@
+---
+title: "Securing WordPress: 15 Critical Hardening Tips"
+description: "WordPress is the #1 target for hackers. Protect your site with these technical hardening steps, from database protection to AI security walls."
+date: "2026-03-24"
+category: "WordPress"
+---
+
+<TLDR>
+**Quick Summary:** WordPress security is about reducing your attack surface. Disable XML-RPC, hide your version number, use strong login security, and never use nulled plugins.
+</TLDR>
+
+## The Security Reality
+WordPress is targeted not because it's weak, but because it's everywhere. Most hacks happen due to outdated plugins or weak passwords. 
+
+### 15 Essential Hardening Tips
+
+1. **Update Everything**: Set your core, themes, and plugins to auto-update.
+2. **Use Strong Passwords**: Avoid "adminX123". Use a password manager.
+3. **Change the DB Prefix**: Change `wp_` to something random during installation.
+4. **Disable XML-RPC**: It’s a common gateway for Brute Force attacks.
+5. **Hide WP Version**: Don't tell hackers which version you're running.
+6. **Limit Login Attempts**: Use a plugin or server-level firewall to ban bots.
+7. **Disable File Editing**: Set `define('DISALLOW_FILE_EDIT', true);` in `wp-config.php`.
+8. **Secure your wp-config.php**: Move it above the web root or restrict access in `.htaccess`.
+9. **Two-Factor Authentication (2FA)**: Add a second layer of security for admins.
+10. **Use a Reliable Host**: AmanaFlow’s **Imunify360** scans for malware in real-time.
+11. **Avoid Nulled Plugins**: "Free" versions of premium plugins often contain backdoors.
+12. **Set Correct File Permissions**: 755 for folders, 644 for files.
+13. **Disable Directory Browsing**: Prevent users from seeing your file structure.
+14. **Use a Web Application Firewall (WAF)**: Either cloud-based (Cloudflare) or server-based.
+15. **Enable Daily Backups**: The ultimate safety net.
+
+---
+
+## The Role of the Server
+AmanaFlow’s WordPress plans are "Hardened by Design." We implement multiple security layers at the **Kernel level**, preventing 99% of common attacks before they even reach your WordPress installation.
+
+[Check WordPress Security Hosting](/wordpress-hosting)
+
+---
+
+## FAQ
+**Q: Is a security plugin enough?**  
+A: It’s a good start, but server-level security is 100x more powerful. Plugins like Wordfence are great but consume server resources.
+
+**Q: How do I know if I'm hacked?**  
+A: Sudden traffic drops, strange files in your file manager, or Google flagging your site as "Deceptive." 

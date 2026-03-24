@@ -1,0 +1,64 @@
+---
+title: "How to Set Up Custom Nameservers in WHM / cPanel"
+description: "Brand your agency professionally. Learn how to configure vanity nameservers and register them correctly at your domain registrar."
+date: "2026-03-24"
+category: "Server Administration"
+image: "/images/blog/whmcs_automation_featured.png"
+---
+
+<TLDR>
+**Branding 101:** Sending your clients to `ns1.amanaflow.com` dilutes your brand. Setting up `ns1.youragency.com` requires configuring A-Records in WHM and establishing "Glue Records" with your registrar.
+</TLDR>
+
+## The Professional Polish
+When you sell white-label Reseller hosting, the entire goal is ensuring your clients never know you are renting server space from an upstream provider like AmanaFlow.
+
+If a client does a WHOIS lookup on their domain and sees `ns1.gigantic-hosting-corp.com`, the illusion breaks. You must configure **Custom Nameservers**.
+
+### Defining Glue Records
+You have a "chicken and egg" problem in DNS. 
+If your domain is `youragency.com`, and the nameserver *responsible* for resolving `youragency.com` is `ns1.youragency.com`, how does the internet find `ns1` in the first place?
+
+The answer is **Glue Records**. You register the IP address of `ns1` directly with the top-level Domain Registrar (like Namecheap, GoDaddy, or AmanaFlow Domains).
+
+### Step 1: Obtain the IP Addresses
+Your Reseller hosting provider should have emailed you two specific IP addresses for your nameservers.
+- Primary IP: `192.168.1.1` *(Example)*
+- Secondary IP: `192.168.1.2` *(Example)*
+
+### Step 2: Configure WHM (Server Side)
+1. Log into your WHM Control Panel.
+2. Search for **Basic WebHost Manager Setup**.
+3. Scroll down to *Nameservers*.
+4. Enter your custom nameservers (e.g., `ns1.youragency.com` and `ns2.youragency.com`).
+5. Click **Configure Address Records** for both. Provide the IPs you were given.
+6. Click Save.
+
+### Step 3: Register Glue Records (Registrar Side)
+Log into the dashboard where you purchased `youragency.com`.
+The phrasing differs by company:
+- **AmanaFlow Domains:** Go to Domain Management > Private Nameservers.
+- **Namecheap:** Go to Advanced DNS > Personal DNS Server.
+- **GoDaddy:** Hostnames.
+
+Register `ns1` pointing to the Primary IP, and `ns2` pointing to the Secondary IP. 
+
+---
+
+<ProductMarketing 
+  title="Scale Your White-Label Agency"
+  description="Every AmanaFlow Reseller hosting plan includes unlimited White-Label customization and 100% NVMe power."
+  cta="View Reseller Tiers"
+  link="/reseller-hosting"
+  type="agency"
+/>
+
+---
+
+### Step 4: The Final DNS Update
+Now that the Glue Records exist, go back to your standard Nameserver settings in your registrar and change your domain to actually *use* those new nameservers.
+Wait 2 to 24 hours for global DNS propagation.
+
+## FAQs
+**Q: Can I use Cloudflare and Custom Nameservers at the same time?**  
+A: No. If you use Cloudflare, Cloudflare *is* your nameserver provider. You must use Cloudflare's provided nameservers, though Business-tier accounts allow for Custom Vanities.

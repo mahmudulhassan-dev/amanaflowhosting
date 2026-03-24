@@ -1,0 +1,72 @@
+---
+title: "How to Force HTTPS Redirects Using .htaccess in WordPress"
+description: "You installed an SSL, but users are still landing on the insecure HTTP version. Here are the exact codes to force rigid HTTPS routing."
+date: "2026-03-24"
+category: "Developer Tutorials"
+image: "/images/blog/wordpress_excellence_featured.png"
+---
+
+<TLDR>
+**The Rewrite Rule:** Installing an SSL certificate does not automatically force traffic to use it. You must add `RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]` to your `.htaccess` file.
+</TLDR>
+
+## The "Not Secure" Warning
+After installing an AutoSSL in cPanel, you eagerly visit `yourdomain.com` only to see Google Chrome warning you that the site is "Not Secure."
+
+Why? Because DNS defaults to port 80 (HTTP). Unless you explicitly tell the server to route traffic to port 443 (HTTPS), browsers will continue loading the insecure version. 
+We fix this using the `.htaccess` configuration file (if you are on an Apache or LiteSpeed server).
+
+### Step 1: Change URL in WordPress
+Before messing with code, check the most obvious setting:
+1. Log into your WP-Admin dashboard.
+2. Go to **Settings > General**.
+3. Change both the *WordPress Address (URL)* and *Site Address (URL)* from `http://` to `https://`.
+4. Click Save Changes. *(You will be logged out instantly. Log back in).*
+
+### Step 2: Access your .htaccess File
+1. Log into your AmanaFlow cPanel or CyberPanel.
+2. Open the **File Manager** and go to `public_html`.
+3. Click "Settings" in the top right and check **Show Hidden Files (dotfiles)**.
+4. Right-click the `.htaccess` file and select **Edit**.
+
+### Step 3: Insert the Force HTTPS Code
+Add the following code at the *very top* of the file (above the `# BEGIN WordPress` line):
+
+```apache
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+```
+*Save the file.* 
+This code performs a permanent **301 Redirect**, telling search engines and browsers that the HTTP version of your site has permanently moved to the encrypted HTTPS version.
+
+---
+
+<ProductMarketing 
+  title="LiteSpeed Server Power"
+  description="Our servers run natively on LiteSpeed Web Server, fully supporting standard .htaccess directives but processing them up to 5x faster than Apache."
+  cta="View WordPress Hosting"
+  link="/wordpress-hosting"
+  type="shared"
+/>
+
+---
+
+## Forcing HTTPS in Nginx
+If you are running an Unmanaged VPS with Nginx (which does not use `.htaccess` files), you must configure the server block directly.
+
+Open your server config (e.g., `/etc/nginx/sites-available/yourdomain.com`):
+```nginx
+server {
+    listen 80;
+    server_name yourdomain.com www.yourdomain.com;
+    return 301 https://$host$request_uri;
+}
+```
+Reload Nginx (`sudo systemctl reload nginx`) to apply the changes.
+
+## FAQs
+**Q: I forced HTTPS and now my website is stuck in an "ERR_TOO_MANY_REDIRECTS" loop. What happened?**  
+A: You are using Cloudflare, and your SSL/TLS setting is set to "Flexible." Cloudflare is trying to connect to your server via HTTP, but your `.htaccess` forces it back to HTTPS, creating an infinite loop. Change Cloudflare's SSL setting to **Full (Strict)** to fix this immediately.

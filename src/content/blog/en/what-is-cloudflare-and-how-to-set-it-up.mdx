@@ -1,0 +1,62 @@
+---
+title: "What is Cloudflare and How to Set It Up on Your Website"
+description: "Block DDoS attacks, cache your assets globally, and reduce server load by 70%. The ultimate beginner's guide to configuring Cloudflare."
+date: "2026-03-24"
+category: "Web Security"
+image: "/images/blog/vps_optimization_featured.png"
+---
+
+<TLDR>
+**The Ultimate Shield:** Cloudflare is a Content Delivery Network (CDN) and a Web Application Firewall (WAF) that sits exactly between your website visitors and your AmanaFlow hosting server, caching your data and blocking malicious bots.
+</TLDR>
+
+## The Problem with Direct Traffic
+When someone in Australia visits your website hosted in a New York data center, their browser has to travel across the globe to download your images, CSS, and HTML. This takes time (Latency).
+
+Furthermore, if a hacker in Russia decides to launch a DDoS attack sending a million fake requests per second, those requests hit your New York server directly, crashing your website instantly.
+
+### How Cloudflare Solves This
+Cloudflare operates a massive network of servers in over 300 cities worldwide. 
+
+When you set up Cloudflare, you change your domain's Nameservers so that **all traffic goes to Cloudflare first**.
+1. **Caching:** Cloudflare saves copies of your images on their servers. When the Australian user visits, Cloudflare serves the images directly from Sydney.
+2. **Security:** Cloudflare analyzes every visitor. If it detects a malicious bot or DDoS attack, it drops the connection at their firewall. The attack never even reaches your AmanaFlow server.
+
+### Step 1: Add Your Site to Cloudflare
+1. Create a free account at `cloudflare.com`.
+2. Click **Add a Site** and enter your domain name (`yourdomain.com`).
+3. Select the **Free Plan** (it provides everything 99% of websites need).
+4. Cloudflare will scan your existing DNS records (A, MX, CNAME). Verify they look correct.
+
+### Step 2: Change Your Nameservers
+At the final step, Cloudflare will give you two custom nameservers (e.g., `amy.ns.cloudflare.com` and `bob.ns.cloudflare.com`).
+1. Log into your AmanaFlow Domain Control Panel.
+2. Navigate to **Nameservers**.
+3. Delete the default ones and paste the two Cloudflare nameservers.
+4. Save.
+
+Wait 10 to 60 minutes for the change to propagate globally.
+
+---
+
+<ProductMarketing 
+  title="Optimized for Cloudflare"
+  description="Every AmanaFlow server is optimized to work harmoniously with Cloudflare's strict CDN caching rules, guaranteeing lightning-fast TTFB."
+  cta="View Hosting Plans"
+  link="/web-hosting"
+  type="shared"
+/>
+
+---
+
+## Important Cloudflare Settings
+Once activated, navigate through the Cloudflare dashboard and ensure these settings are configured:
+
+1. **SSL/TLS Mode:** Set this to **Full (Strict)**. This ensures traffic between Cloudflare and your origin server is encrypted.
+2. **Bot Fight Mode:** Turn this ON to challenge suspicious crawlers.
+3. **Minify:** Turn on HTML, CSS, and JS minification under the Speed tab.
+4. **Development Mode:** If you are actively designing your site and updating CSS, turn this ON so Cloudflare stops caching your changes temporarily.
+
+## FAQs
+**Q: Do I still need an SSL certificate on my actual server if Cloudflare gives me one?**  
+A: Yes. Cloudflare encrypts the traffic from the Visitor to Cloudflare. You still need an SSL (like Let's Encrypt or AmanaFlow AutoSSL) to encrypt the traffic from Cloudflare back to your origin server.
