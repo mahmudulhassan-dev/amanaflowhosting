@@ -17,6 +17,12 @@ interface DomainResultCardProps {
 export function DomainResultCard({ result, index }: DomainResultCardProps) {
   const isAvailable = result.available;
   
+  const handleBuyNow = () => {
+    const whmcsUrl = process.env.NEXT_PUBLIC_WHMCS_URL || "https://clients.amanaflow.cloud/";
+    const checkoutUrl = `${whmcsUrl}cart.php?a=add&domain=register&query=${encodeURIComponent(result.domain)}`;
+    window.open(checkoutUrl, '_blank');
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -69,7 +75,12 @@ export function DomainResultCard({ result, index }: DomainResultCardProps) {
 
           <div className="shrink-0">
             {isAvailable ? (
-              <Button size="lg" variant="primary" className="rounded-xl px-6 gap-2 shadow-premium hover:shadow-glow group-hover:scale-105 transition-transform">
+              <Button 
+                onClick={handleBuyNow}
+                size="lg" 
+                variant="primary" 
+                className="rounded-xl px-6 gap-2 shadow-premium hover:shadow-glow group-hover:scale-105 transition-transform"
+              >
                 <ShoppingCart size={18} /> Buy Now
               </Button>
             ) : (
