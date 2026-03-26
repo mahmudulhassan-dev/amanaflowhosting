@@ -19,7 +19,15 @@ export function DomainResultCard({ result, index }: DomainResultCardProps) {
   
   const handleBuyNow = () => {
     const whmcsUrl = process.env.NEXT_PUBLIC_WHMCS_URL || "https://clients.amanaflow.cloud/";
-    const checkoutUrl = `${whmcsUrl}cart.php?a=add&domain=register&query=${encodeURIComponent(result.domain)}`;
+    
+    // Split domain into sld and tld for better WHMCS pre-fill
+    // e.g. amanaflow.com -> sld=amanaflow, tld=.com
+    const parts = result.domain.split('.');
+    const sld = parts[0];
+    const tld = `.${parts.slice(1).join('.')}`;
+    
+    // WHMCS standard cart parameters for direct registration
+    const checkoutUrl = `${whmcsUrl}cart.php?a=add&domain=register&sld=${encodeURIComponent(sld)}&tld=${encodeURIComponent(tld)}`;
     window.open(checkoutUrl, '_blank');
   };
 
